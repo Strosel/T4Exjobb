@@ -1,5 +1,6 @@
 package main
 
+//MenuItem A menu item
 type MenuItem struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
@@ -7,6 +8,7 @@ type MenuItem struct {
 	Price int    `json:"price"`
 }
 
+//Location A store location
 type Location struct {
 	ID   int        `json:"id,omitempty"`
 	Name string     `json:"name"`

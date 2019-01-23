@@ -42,7 +42,7 @@ func getLocations(w http.ResponseWriter, r *http.Request) {
 
 	// query
 	rows, err := db.Query("SELECT * FROM locations")
-	if HttpError(err, w, 500) {
+	if HTTPError(err, w, 500) {
 		return
 	}
 
@@ -50,14 +50,14 @@ func getLocations(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var Loc Location
 		err = rows.Scan(&Loc.ID, &Loc.Name, &Loc.Lat, &Loc.Long)
-		if HttpError(err, w, 500) {
+		if HTTPError(err, w, 500) {
 			return
 		}
 		Locations = append(Locations, Loc)
 	}
 
 	b, err := json.Marshal(Locations)
-	if HttpError(err, w, 500) {
+	if HTTPError(err, w, 500) {
 		return
 	}
 
@@ -68,7 +68,7 @@ func getLocation(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	id, err := httpin.GetParamInt(r, "id")
-	if HttpError(err, w, 400) {
+	if HTTPError(err, w, 400) {
 		return
 	}
 
@@ -80,7 +80,7 @@ func getLocation(w http.ResponseWriter, r *http.Request) {
 	JOIN menuitems I ON I.id = M.menuItem
 	WHERE L.id=%v`, id)
 	rows, err := db.Query(sql)
-	if HttpError(err, w, 500) {
+	if HTTPError(err, w, 500) {
 		return
 	}
 
@@ -88,21 +88,22 @@ func getLocation(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var MI MenuItem
 		err = rows.Scan(&Loc.Name, &MI.ID, &MI.Name, &MI.Img, &MI.Price)
-		if HttpError(err, w, 500) {
+		if HTTPError(err, w, 500) {
 			return
 		}
 		Loc.Menu = append(Loc.Menu, MI)
 	}
 
 	b, err := json.Marshal(Loc)
-	if HttpError(err, w, 500) {
+	if HTTPError(err, w, 500) {
 		return
 	}
 
 	w.Write(b)
 }
 
-func HttpError(err error, w http.ResponseWriter, statusCode int) bool {
+//HTTPError Check error. If error is not nil log it and set the given status code
+func HTTPError(err error, w http.ResponseWriter, statusCode int) bool {
 	if err != nil {
 		w.WriteHeader(statusCode)
 		log.Println(err)
