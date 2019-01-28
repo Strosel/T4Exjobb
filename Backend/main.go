@@ -2,9 +2,11 @@ package main
 
 import (
 	"database/sql"
+	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 
@@ -34,6 +36,8 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/locations", getLocations)
 	mux.HandleFunc("/location", getLocation)
+	mux.HandleFunc("/order", sendOrder)
+
 	http.ListenAndServe(":8080", mux)
 }
 
@@ -49,7 +53,7 @@ func getLocations(w http.ResponseWriter, r *http.Request) {
 	var Locations []Location
 	for rows.Next() {
 		var Loc Location
-		err = rows.Scan(&Loc.ID, &Loc.Name, &Loc.Lat, &Loc.Long)
+		err = rows.Scan(&Loc.ID, &Loc.Name, &Loc.Lat, &Loc.Long, &Loc.Target)
 		if HTTPError(err, w, 500) {
 			return
 		}
@@ -95,6 +99,77 @@ func getLocation(w http.ResponseWriter, r *http.Request) {
 	}
 
 	b, err := json.Marshal(Loc)
+	if HTTPError(err, w, 500) {
+		return
+	}
+
+	w.Write(b)
+}
+
+func sendOrder(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	id, err := httpin.GetParamInt(r, "id")
+	if HTTPError(err, w, 400) {
+		return
+	}
+	loc, err := httpin.GetParamInt(r, "location")
+	if HTTPError(err, w, 400) {
+		return
+	}
+
+	// query
+	sql := fmt.Sprintf(`SELECT target FROM locations WHERE id=%v LIMIT 1`, loc)
+	rows, err := db.Query(sql)
+	if HTTPError(err, w, 500) {
+		return
+	}
+
+	var target string
+	for rows.Next() {
+		err = rows.Scan(&target)
+		if HTTPError(err, w, 500) {
+			return
+		}
+	}
+
+	//write order to target an recieve order number and deadline
+	c, err := net.Dial("tcp", target)
+	if HTTPError(err, w, 500) {
+		return
+	}
+	defer c.Close()
+
+	send := make([]byte, 64)
+	binary.PutUvarint(send, uint64(id))
+	_, err = c.Write(send)
+	if HTTPError(err, w, 500) {
+		return
+	}
+
+	recive := make([]byte, 128)
+	_, err = c.Read(recive)
+	if HTTPError(err, w, 500) {
+		return
+	}
+
+	oid, n := binary.Uvarint(recive[:64])
+	if n <= 0 {
+		w.WriteHeader(500)
+		log.Println("Can't Read bytes [:64]")
+		return
+	}
+	dl, n := binary.Varint(recive[64:])
+	if n <= 0 {
+		w.WriteHeader(500)
+		log.Println("Can't Read bytes [64:]")
+		return
+	}
+
+	b, err := json.Marshal(Order{
+		ID:       uint(oid),
+		Deadline: dl,
+	})
 	if HTTPError(err, w, 500) {
 		return
 	}

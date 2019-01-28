@@ -10,9 +10,16 @@ type MenuItem struct {
 
 //Location A store location
 type Location struct {
-	ID   int        `json:"id,omitempty"`
-	Name string     `json:"name"`
-	Lat  float64    `json:"latitude,omitempty"`
-	Long float64    `json:"longitude,omitempty"`
-	Menu []MenuItem `json:"menu,omitempty"`
+	ID     int        `json:"id,omitempty"`
+	Name   string     `json:"name"`
+	Lat    float64    `json:"latitude,omitempty"`
+	Long   float64    `json:"longitude,omitempty"`
+	Target string     `json:"target,omitempty"`
+	Menu   []MenuItem `json:"menu,omitempty"`
+}
+
+//Order An order
+type Order struct {
+	ID       uint  `json:"id"`
+	Deadline int64 `json:"deadline"`
 }
