@@ -46,7 +46,7 @@ func main() {
 
 	err = http.ListenAndServe(":8080", mux)
 	if err != nil {
-		log.Fatalf("http.ListenAndServeTLS Error %v", err)
+		log.Fatalf("http.ListenAndServe Error %v", err)
 	}
 }
 
