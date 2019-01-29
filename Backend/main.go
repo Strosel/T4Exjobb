@@ -76,6 +76,7 @@ func getLocations(w http.ResponseWriter, r *http.Request) {
 			// --ToDo--
 			// ping target set online status
 			// --ToDo--
+			Loc.IsOnline = true
 			Locations.Locations = append(Locations.Locations, Loc)
 		}
 
@@ -104,11 +105,11 @@ func getLocation(w http.ResponseWriter, r *http.Request) {
 
 		// query
 		sql := fmt.Sprintf(`
-	SELECT L.name, I.id, I.name, I.img, M.price 
-	FROM locations L 
-	JOIN locationmenu M ON M.locationID = L.id 
-	JOIN menuitems I ON I.id = M.menuItem
-	WHERE L.id=%v`, id)
+		SELECT L.name, I.id, I.name, I.img, M.price 
+		FROM locations L 
+		JOIN locationmenu M ON M.locationID = L.id 
+		JOIN menuitems I ON I.id = M.menuItem
+		WHERE L.id=%v`, id)
 		rows, err := db.Query(sql)
 		if HTTPError(err, w, 500) {
 			return
