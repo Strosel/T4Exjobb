@@ -9,6 +9,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/strosel/goinput/httpin"
 
@@ -141,11 +142,15 @@ func sendOrder(w http.ResponseWriter, r *http.Request) {
 	default:
 		w.Header().Set("Content-Type", "application/json")
 
-		id, err := httpin.GetParamInt(r, "id")
+		r.ParseForm()
+		loc, err := strconv.ParseUint(r.Form.Get("loc"), 10, 64)
 		if HTTPError(err, w, 400) {
 			return
 		}
-		loc, err := httpin.GetParamInt(r, "location")
+
+		var orders []uint64
+		// orders is a slice of uints in a repeating pattern of id, volume
+		err = json.Unmarshal([]byte(r.Form.Get("orders")), &orders)
 		if HTTPError(err, w, 400) {
 			return
 		}
@@ -172,8 +177,31 @@ func sendOrder(w http.ResponseWriter, r *http.Request) {
 		}
 		defer c.Close()
 
-		send := make([]byte, 64)
-		binary.PutUvarint(send, uint64(id))
+		// send follows the pattern [size, location, orders]
+		send := []byte{}
+
+		//allocate space for size
+		component := make([]byte, 64)
+		send = append(send, component...)
+
+		//add loc
+		binary.PutUvarint(component, loc)
+		send = append(send, component...)
+
+		//add orders
+		for _, order := range orders {
+			component = make([]byte, 64)
+			binary.PutUvarint(component, order)
+			send = append(send, component...)
+		}
+
+		//insert size
+		component = make([]byte, 64)
+		binary.PutUvarint(component, uint64(len(send)))
+		for i := range component {
+			send[i] = component[i]
+		}
+
 		_, err = c.Write(send)
 		if HTTPError(err, w, 500) {
 			return
