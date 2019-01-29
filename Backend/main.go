@@ -50,143 +50,164 @@ func main() {
 }
 
 func getLocations(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	ctx := r.Context()
 
-	// query
-	rows, err := db.Query("SELECT * FROM locations")
-	if HTTPError(err, w, 500) {
-		return
-	}
+	select {
+	case <-ctx.Done():
+		log.Println(ctx.Err().Error())
+	default:
+		w.Header().Set("Content-Type", "application/json")
 
-	var target string
-	var Locations Locations
-	for rows.Next() {
-		var Loc Location
-		err = rows.Scan(&Loc.ID, &Loc.Name, &Loc.Lat, &Loc.Long, &target)
+		// query
+		rows, err := db.Query("SELECT * FROM locations")
 		if HTTPError(err, w, 500) {
 			return
 		}
-		// --ToDo--
-		// ping target set online status
-		// --ToDo--
-		Locations.Locations = append(Locations.Locations, Loc)
-	}
 
-	b, err := json.Marshal(Locations)
-	if HTTPError(err, w, 500) {
-		return
-	}
+		var target string
+		var Locations Locations
+		for rows.Next() {
+			var Loc Location
+			err = rows.Scan(&Loc.ID, &Loc.Name, &Loc.Lat, &Loc.Long, &target)
+			if HTTPError(err, w, 500) {
+				return
+			}
+			// --ToDo--
+			// ping target set online status
+			// --ToDo--
+			Locations.Locations = append(Locations.Locations, Loc)
+		}
 
-	w.Write(b)
+		b, err := json.Marshal(Locations)
+		if HTTPError(err, w, 500) {
+			return
+		}
+
+		w.Write(b)
+	}
 }
 
 func getLocation(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	ctx := r.Context()
 
-	id, err := httpin.GetParamInt(r, "id")
-	if HTTPError(err, w, 400) {
-		return
-	}
+	select {
+	case <-ctx.Done():
+		log.Println(ctx.Err().Error())
+	default:
+		w.Header().Set("Content-Type", "application/json")
 
-	// query
-	sql := fmt.Sprintf(`
+		id, err := httpin.GetParamInt(r, "id")
+		if HTTPError(err, w, 400) {
+			return
+		}
+
+		// query
+		sql := fmt.Sprintf(`
 	SELECT L.name, I.id, I.name, I.img, M.price 
 	FROM locations L 
 	JOIN locationmenu M ON M.locationID = L.id 
 	JOIN menuitems I ON I.id = M.menuItem
 	WHERE L.id=%v`, id)
-	rows, err := db.Query(sql)
-	if HTTPError(err, w, 500) {
-		return
-	}
-
-	var Loc Location
-	for rows.Next() {
-		var MI MenuItem
-		err = rows.Scan(&Loc.Name, &MI.ID, &MI.Name, &MI.Img, &MI.Price)
+		rows, err := db.Query(sql)
 		if HTTPError(err, w, 500) {
 			return
 		}
-		Loc.Menu = append(Loc.Menu, MI)
-	}
 
-	b, err := json.Marshal(Loc)
-	if HTTPError(err, w, 500) {
-		return
-	}
+		var Loc Location
+		for rows.Next() {
+			var MI MenuItem
+			err = rows.Scan(&Loc.Name, &MI.ID, &MI.Name, &MI.Img, &MI.Price)
+			if HTTPError(err, w, 500) {
+				return
+			}
+			Loc.Menu = append(Loc.Menu, MI)
+		}
 
-	w.Write(b)
+		b, err := json.Marshal(Loc)
+		if HTTPError(err, w, 500) {
+			return
+		}
+
+		w.Write(b)
+	}
 }
 
 func sendOrder(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	ctx := r.Context()
 
-	id, err := httpin.GetParamInt(r, "id")
-	if HTTPError(err, w, 400) {
-		return
-	}
-	loc, err := httpin.GetParamInt(r, "location")
-	if HTTPError(err, w, 400) {
-		return
-	}
+	select {
+	case <-ctx.Done():
+		log.Println(ctx.Err().Error())
+	default:
+		w.Header().Set("Content-Type", "application/json")
 
-	// query
-	sql := fmt.Sprintf(`SELECT target FROM locations WHERE id=%v LIMIT 1`, loc)
-	rows, err := db.Query(sql)
-	if HTTPError(err, w, 500) {
-		return
-	}
+		id, err := httpin.GetParamInt(r, "id")
+		if HTTPError(err, w, 400) {
+			return
+		}
+		loc, err := httpin.GetParamInt(r, "location")
+		if HTTPError(err, w, 400) {
+			return
+		}
 
-	var target string
-	for rows.Next() {
-		err = rows.Scan(&target)
+		// query
+		sql := fmt.Sprintf(`SELECT target FROM locations WHERE id=%v LIMIT 1`, loc)
+		rows, err := db.Query(sql)
 		if HTTPError(err, w, 500) {
 			return
 		}
-	}
 
-	//write order to target an recieve order number and deadline
-	c, err := net.Dial("tcp", target)
-	if HTTPError(err, w, 500) {
-		return
-	}
-	defer c.Close()
+		var target string
+		for rows.Next() {
+			err = rows.Scan(&target)
+			if HTTPError(err, w, 500) {
+				return
+			}
+		}
 
-	send := make([]byte, 64)
-	binary.PutUvarint(send, uint64(id))
-	_, err = c.Write(send)
-	if HTTPError(err, w, 500) {
-		return
-	}
+		//write order to target an recieve order number and deadline
+		c, err := net.Dial("tcp", target)
+		if HTTPError(err, w, 500) {
+			return
+		}
+		defer c.Close()
 
-	recive := make([]byte, 128)
-	_, err = c.Read(recive)
-	if HTTPError(err, w, 500) {
-		return
-	}
+		send := make([]byte, 64)
+		binary.PutUvarint(send, uint64(id))
+		_, err = c.Write(send)
+		if HTTPError(err, w, 500) {
+			return
+		}
 
-	oid, n := binary.Uvarint(recive[:64])
-	if n <= 0 {
-		w.WriteHeader(500)
-		log.Println("Can't Read bytes [:64]")
-		return
-	}
-	dl, n := binary.Varint(recive[64:])
-	if n <= 0 {
-		w.WriteHeader(500)
-		log.Println("Can't Read bytes [64:]")
-		return
-	}
+		recive := make([]byte, 128)
+		_, err = c.Read(recive)
+		if HTTPError(err, w, 500) {
+			return
+		}
 
-	b, err := json.Marshal(Order{
-		ID:       uint(oid),
-		Deadline: dl,
-	})
-	if HTTPError(err, w, 500) {
-		return
-	}
+		oid, n := binary.Uvarint(recive[:64])
+		if n <= 0 {
+			w.WriteHeader(500)
+			log.Println("Can't Read bytes [:64]")
+			return
+		}
+		dl, n := binary.Varint(recive[64:])
+		if n <= 0 {
+			w.WriteHeader(500)
+			log.Println("Can't Read bytes [64:]")
+			return
+		}
 
-	w.Write(b)
+		b, err := json.Marshal(Order{
+			ID:       uint(oid),
+			Deadline: dl,
+		})
+		if HTTPError(err, w, 500) {
+			return
+		}
+
+		w.Write(b)
+	}
 }
 
 //HTTPError Check error. If error is not nil log it and set the given status code
