@@ -30,7 +30,12 @@ func main() {
 
 	db, err = sql.Open("mysql", "root:@tcp(localhost:3306)/robochef")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("DB Open Error %v", err)
+	}
+
+	err = db.Ping()
+	if err != nil {
+		log.Fatalf("DB Ping Error %v", err)
 	}
 
 	mux := http.NewServeMux()
@@ -38,7 +43,10 @@ func main() {
 	mux.HandleFunc("/location", getLocation)
 	mux.HandleFunc("/order", sendOrder)
 
-	http.ListenAndServe(":8080", mux)
+	err = http.ListenAndServe(":8080", mux)
+	if err != nil {
+		log.Fatalf("http.ListenAndServeTLS Error %v", err)
+	}
 }
 
 func getLocations(w http.ResponseWriter, r *http.Request) {
@@ -50,14 +58,18 @@ func getLocations(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var Locations []Location
+	var target string
+	var Locations Locations
 	for rows.Next() {
 		var Loc Location
-		err = rows.Scan(&Loc.ID, &Loc.Name, &Loc.Lat, &Loc.Long, &Loc.Target)
+		err = rows.Scan(&Loc.ID, &Loc.Name, &Loc.Lat, &Loc.Long, &target)
 		if HTTPError(err, w, 500) {
 			return
 		}
-		Locations = append(Locations, Loc)
+		// --ToDo--
+		// ping target set online status
+		// --ToDo--
+		Locations.Locations = append(Locations.Locations, Loc)
 	}
 
 	b, err := json.Marshal(Locations)
