@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColorPrimary">@color/colorMenuBarText</item>
+        <item name="actionMenuTextColor">@color/colorMenuBarText</item>
+        <item name="android:textColorSecondary">@color/colorMenuBarText</item>
+    </style>
+
 </resources>

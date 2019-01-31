@@ -4,10 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 public class Location {
 
@@ -15,7 +11,7 @@ public class Location {
     protected  String Name;
     protected double Lat, Long;
     protected boolean isonline;
-    protected ArrayList<MenuItem> menu;
+    protected ArrayList<FoodItem> menu;
 
     public Location(JSONObject json) {
         try {
@@ -28,12 +24,11 @@ public class Location {
         } catch (Exception e) {}
     }
 
-    public static ArrayList<Location> LocationListBuilder(JSONObject json) {
-        ArrayList<Location> out = new ArrayList<Location>();
+    public static ArrayList<Location> LocationListBuilder(JSONArray json) {
+        ArrayList<Location> out = new ArrayList<>();
         try {
-            JSONArray arr = json.getJSONArray("locations");
-            for (int i = 0; i < arr.length(); i++) {
-                JSONObject obj = arr.getJSONObject(i);
+            for (int i = 0; i < json.length(); i++) {
+                JSONObject obj = json.getJSONObject(i);
                 out.add(new Location(obj));
             }
         } catch (Exception e) {}

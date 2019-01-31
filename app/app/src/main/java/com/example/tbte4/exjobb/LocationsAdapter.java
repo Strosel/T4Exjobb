@@ -1,6 +1,7 @@
 package com.example.tbte4.exjobb;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v7.widget.CardView;
@@ -76,7 +77,9 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.View
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(ctx, MenuActivity.class);
+                    intent.putExtra("locationID", location.id);
+                    ctx.startActivity(intent);
                 }
             });
 
