@@ -1,4 +1,4 @@
-package com.example.tbte4.exjobb;
+package com.example.tbte4.exjobb.helpers;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class HttpLoader extends AsyncTask<String, Void, JSONObject> {
+
+    private static String tag = "ExJobb HttpLoader";
 
     protected JSONObject doInBackground(String... url) {
         HttpURLConnection conn = null;
@@ -39,7 +41,7 @@ public class HttpLoader extends AsyncTask<String, Void, JSONObject> {
 
 
         } catch (Exception e) {
-            Log.v("ExJobb", e.toString());
+            Log.v(tag, e.toString());
         }
 
         if (conn != null)

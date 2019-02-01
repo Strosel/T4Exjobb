@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Exjobb</string>
-    <string name="base_url">http://192.168.1.127:8080</string>
+    <string name="server_endpoint">http://192.168.1.122:8080</string>
+    <string name="cache_file_name">orderCache.json</string>
 
     <string name="err_conn">Can\'t Connect</string>
+    <string name="err_cart">Something went wrong when editing your cart</string>
 </resources>

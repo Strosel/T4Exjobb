@@ -1,17 +1,17 @@
-package com.example.tbte4.exjobb;
+package com.example.tbte4.exjobb.items;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.ref.SoftReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FoodItem {
 
-    protected int id;
-    protected String Name;
-    protected String Img;
-    protected int Price;
+    public int id;
+    public String Name;
+    public String Img;
+    public int Price;
 
     public FoodItem(JSONObject json) {
         try {

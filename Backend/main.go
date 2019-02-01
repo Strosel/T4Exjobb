@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/binary"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
 	"net"
@@ -43,6 +44,7 @@ func main() {
 	mux.HandleFunc("/locations", getLocations)
 	mux.HandleFunc("/location", getLocation)
 	mux.HandleFunc("/order", sendOrder)
+	mux.HandleFunc("/MenuItems", getMenuItems)
 
 	err = http.ListenAndServe(":8080", mux)
 	if err != nil {
@@ -231,6 +233,58 @@ func sendOrder(w http.ResponseWriter, r *http.Request) {
 			ID:       uint(oid),
 			Deadline: dl,
 		})
+		if HTTPError(err, w, 500) {
+			return
+		}
+
+		w.Write(b)
+	}
+}
+
+func getMenuItems(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	select {
+	case <-ctx.Done():
+		log.Println(ctx.Err().Error())
+	default:
+		w.Header().Set("Content-Type", "application/json")
+
+		keys, ok := r.URL.Query()["key"]
+		if !ok {
+			HTTPError(errors.New("No keys"), w, 400)
+			return
+		}
+
+		// query
+		sql := "SELECT * FROM menuitems WHERE "
+		for i, key := range keys {
+			if i < len(keys)-1 {
+				sql += fmt.Sprintf("id = %v OR", key)
+			} else {
+				sql += fmt.Sprintf("id = %v", key)
+			}
+
+		}
+
+		rows, err := db.Query(sql)
+		if HTTPError(err, w, 500) {
+			return
+		}
+
+		var MenuItems []MenuItem
+		for rows.Next() {
+			var MI MenuItem
+			err = rows.Scan(&MI.ID, &MI.Name, &MI.Img)
+			if HTTPError(err, w, 500) {
+				return
+			}
+			MenuItems = append(MenuItems, MI)
+		}
+
+		b, err := json.Marshal(&struct {
+			Menu []MenuItem `json:"menu"`
+		}{MenuItems})
 		if HTTPError(err, w, 500) {
 			return
 		}

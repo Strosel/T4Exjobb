@@ -1,4 +1,4 @@
-package com.example.tbte4.exjobb;
+package com.example.tbte4.exjobb.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.tbte4.exjobb.items.Location;
+import com.example.tbte4.exjobb.MenuActivity;
+import com.example.tbte4.exjobb.R;
+import com.example.tbte4.exjobb.helpers.cacheFileHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.ViewHolder> {
 
-    Context ctx;
-    ArrayList<Location> locations;
+    private Context ctx;
+    private ArrayList<Location> locations;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -77,6 +82,19 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.View
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    cacheFileHelper cache = new cacheFileHelper(ctx, R.string.cache_file_name);
+                    cache.load();
+
+                    try {
+                        if (cache.getLocationID() != location.id) {
+                            cache.clear();
+                            cache.setLocationID(location.id);
+                            cache.save();
+                        }
+                    } catch (Exception e) {
+
+                    }
+
                     Intent intent = new Intent(ctx, MenuActivity.class);
                     intent.putExtra("locationID", location.id);
                     ctx.startActivity(intent);

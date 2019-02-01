@@ -3,7 +3,6 @@ package com.example.tbte4.exjobb;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +11,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.tbte4.exjobb.adapters.FoodItemAdapter;
+import com.example.tbte4.exjobb.helpers.HttpLoader;
+import com.example.tbte4.exjobb.items.FoodItem;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MenuActivity extends AppCompatActivity  {
+
+    private static String tag = "ExJobb MenuActivity";
+
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +34,20 @@ public class MenuActivity extends AppCompatActivity  {
         setSupportActionBar(myToolbar);
 
         Intent intent = getIntent();
-        int id = intent.getIntExtra("locationID", 0);
+        id = intent.getIntExtra("locationID", 0);
 
         if (id == 0) {
-            Log.v("ExJobb", "Didn't get id");
+            Log.v(tag, "Didn't get id");
             Toast toast = Toast.makeText(this, R.string.err_conn, Toast.LENGTH_SHORT);
             toast.show();
             return;
         }
 
-        String BaseURL = getString(R.string.base_url);
+    }
+
+    @Override
+    protected void onResume() {
+        String BaseURL = getString(R.string.server_endpoint);
         HttpLoader loader = new HttpLoader();
         try {
             JSONObject json = loader.execute(BaseURL+"/location?id="+ String.valueOf(id)).get();
@@ -46,10 +58,11 @@ public class MenuActivity extends AppCompatActivity  {
             FoodItemAdapter adapter = new FoodItemAdapter(this, foodItems);
             foodrecycler.setAdapter(adapter);
         } catch (Exception e) {
-            Log.v("ExJobb", e.toString());
+            Log.v(tag, e.toString());
             Toast toast = Toast.makeText(this, R.string.err_conn, Toast.LENGTH_SHORT);
             toast.show();
         }
+        super.onResume();
     }
 
     @Override
@@ -64,7 +77,8 @@ public class MenuActivity extends AppCompatActivity  {
         int id = item.getItemId();
 
         if (id == R.id.action_cart) {
-            Toast.makeText(this, "Action clicked", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, CartActivity.class);
+            startActivity(intent);
             return true;
         }
 

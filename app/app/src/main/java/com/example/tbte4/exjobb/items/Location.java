@@ -1,4 +1,4 @@
-package com.example.tbte4.exjobb;
+package com.example.tbte4.exjobb.items;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class Location {
 
-    protected int id;
-    protected  String Name;
-    protected double Lat, Long;
-    protected boolean isonline;
-    protected ArrayList<FoodItem> menu;
+    public int id;
+    public  String Name;
+    public double Lat, Long;
+    public boolean isonline;
+    public ArrayList<FoodItem> menu;
 
     public Location(JSONObject json) {
         try {
