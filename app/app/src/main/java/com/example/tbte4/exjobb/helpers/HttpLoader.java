@@ -1,7 +1,10 @@
 package com.example.tbte4.exjobb.helpers;
 
 import android.os.AsyncTask;
+import android.util.JsonReader;
 import android.util.Log;
+
+import com.example.tbte4.exjobb.interfaces.HttpFinishedInterface;
 
 import org.json.JSONObject;
 
@@ -13,6 +16,11 @@ import java.util.Scanner;
 public class HttpLoader extends AsyncTask<String, Void, JSONObject> {
 
     private static String tag = "ExJobb HttpLoader";
+    private HttpFinishedInterface finished;
+
+    public HttpLoader(HttpFinishedInterface finished) {
+        this.finished = finished;
+    }
 
     protected JSONObject doInBackground(String... url) {
         HttpURLConnection conn = null;
@@ -47,6 +55,11 @@ public class HttpLoader extends AsyncTask<String, Void, JSONObject> {
         if (conn != null)
             conn.disconnect();
         return json;
+    }
+
+    @Override
+    protected void onPostExecute(JSONObject result) {
+        finished.Finished(result);
     }
 
 }

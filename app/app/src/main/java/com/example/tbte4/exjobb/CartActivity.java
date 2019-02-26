@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.tbte4.exjobb.adapters.CartAdapter;
@@ -41,5 +43,9 @@ public class CartActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_empty, menu);
         return true;
+    }
+
+    public void buybttnPressed(Button bttn) {
+
     }
 }

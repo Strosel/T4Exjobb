@@ -158,7 +158,7 @@ public class cacheFileHelper {
         if (req.equals(""))
             return new ArrayList<FoodItem>();
         String BaseURL = ctx.getString(R.string.server_endpoint);
-        HttpLoader loader = new HttpLoader();
+        HttpLoader loader = new HttpLoader((JSONObject input) -> {});
         JSONObject json = loader.execute(BaseURL+"/MenuItems?"+ req).get();
         JSONArray arr = json.getJSONArray("menu");
         return FoodItem.FoodItemListBuilder(arr);

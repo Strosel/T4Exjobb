@@ -48,20 +48,23 @@ public class MenuActivity extends AppCompatActivity  {
     @Override
     protected void onResume() {
         String BaseURL = getString(R.string.server_endpoint);
-        HttpLoader loader = new HttpLoader();
-        try {
-            JSONObject json = loader.execute(BaseURL+"/location?id="+ String.valueOf(id)).get();
-            ArrayList<FoodItem> foodItems = FoodItem.FoodItemListBuilder(json.getJSONArray("menu"));
+        HttpLoader loader = new HttpLoader((JSONObject input) -> {
+            try {
+                ArrayList<FoodItem> foodItems = FoodItem.FoodItemListBuilder(input.getJSONArray("menu"));
 
-            RecyclerView foodrecycler = findViewById(R.id.foodMenu);
-            foodrecycler.setLayoutManager(new GridLayoutManager(this, 2));
-            FoodItemAdapter adapter = new FoodItemAdapter(this, foodItems);
-            foodrecycler.setAdapter(adapter);
-        } catch (Exception e) {
-            Log.v(tag, e.toString());
-            Toast toast = Toast.makeText(this, R.string.err_conn, Toast.LENGTH_SHORT);
-            toast.show();
-        }
+                RecyclerView foodrecycler = findViewById(R.id.foodMenu);
+                foodrecycler.setLayoutManager(new GridLayoutManager(this, 2));
+                FoodItemAdapter adapter = new FoodItemAdapter(this, foodItems);
+                foodrecycler.setAdapter(adapter);
+            } catch (Exception e) {
+                Log.v(tag, e.toString());
+                Toast toast = Toast.makeText(this, R.string.err_conn, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+        loader.execute(BaseURL+"/location?id="+ String.valueOf(id));
+
         super.onResume();
     }
 
