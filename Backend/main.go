@@ -10,7 +10,9 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"runtime"
 	"strconv"
+	"time"
 
 	"github.com/strosel/goinput/httpin"
 
@@ -23,7 +25,7 @@ var (
 )
 
 func main() {
-	f, err := os.OpenFile("log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	f, err := os.OpenFile("C:\\Users\\TBTE4\\Documents\\Exjobb\\Backend\\log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("error opening file: %v", err)
 	}
@@ -75,10 +77,11 @@ func getLocations(w http.ResponseWriter, r *http.Request) {
 			if HTTPError(err, w, 500) {
 				return
 			}
-			// --ToDo--
-			// ping target set online status
-			// --ToDo--
-			Loc.IsOnline = true
+			conn, err := net.Dial("tcp", target)
+			if HTTPError(err, w, 500) {
+				return
+			}
+			Loc.IsOnline = Ping(conn, time.Second*10)
 			Locations.Locations = append(Locations.Locations, Loc)
 		}
 
@@ -146,6 +149,7 @@ func sendOrder(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 
 		r.ParseForm()
+		log.Println(r.Body)
 		loc, err := strconv.ParseUint(r.Form.Get("loc"), 10, 64)
 		if HTTPError(err, w, 400) {
 			return
@@ -158,7 +162,7 @@ func sendOrder(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// query
+		// query for target ip
 		sql := fmt.Sprintf(`SELECT target FROM locations WHERE id=%v LIMIT 1`, loc)
 		rows, err := db.Query(sql)
 		if HTTPError(err, w, 500) {
@@ -297,8 +301,34 @@ func getMenuItems(w http.ResponseWriter, r *http.Request) {
 func HTTPError(err error, w http.ResponseWriter, statusCode int) bool {
 	if err != nil {
 		w.WriteHeader(statusCode)
-		log.Println(err)
+		_, _file, _line, _ := runtime.Caller(1)
+		loc := fmt.Sprintf("(%v:%v)", _file, _line)
+		log.Println(err, loc)
 		return true
+	}
+	return false
+}
+
+//Ping Ping Connection with custom handshake
+func Ping(c net.Conn, timeout time.Duration) bool {
+	select {
+	case <-time.After(timeout):
+		m := []byte{0xf0, 0x0d}
+
+		_, err := c.Write(m)
+		if err != nil {
+			return false
+		}
+
+		r := make([]byte, 1)
+		_, err = c.Read(r)
+		if err != nil {
+			return false
+		}
+
+		if r[0] == 0xdd {
+			return true
+		}
 	}
 	return false
 }
