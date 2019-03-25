@@ -6,8 +6,10 @@ import android.util.Log;
 
 import com.example.tbte4.exjobb.interfaces.HttpFinishedInterface;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -18,8 +20,16 @@ public class HttpLoader extends AsyncTask<String, Void, JSONObject> {
     private static String tag = "ExJobb HttpLoader";
     private HttpFinishedInterface finished;
 
+    private boolean isPost = false;
+    private String postBody = "";
+
     public HttpLoader(HttpFinishedInterface finished) {
         this.finished = finished;
+    }
+
+    public void Post(Object body) {
+        isPost = true;
+        postBody = body.toString();
     }
 
     protected JSONObject doInBackground(String... url) {
@@ -33,6 +43,16 @@ public class HttpLoader extends AsyncTask<String, Void, JSONObject> {
             conn = (HttpURLConnection) endpoint.openConnection();
 
             conn.setRequestProperty("User-Agent", "exjobb-rest-app-v0.1");
+
+            if (isPost) {
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty( "Content-Type", "application/json");
+                conn.setRequestProperty( "charset", "utf-8");
+
+                DataOutputStream wr = new DataOutputStream( conn.getOutputStream());
+                wr.writeBytes(postBody);
+                Log.v(tag+"_tmp", postBody);
+            }
 
             if (conn.getResponseCode() == 200) {
                 InputStream responseBody = conn.getInputStream();

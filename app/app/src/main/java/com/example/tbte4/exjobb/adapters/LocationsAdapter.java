@@ -86,11 +86,9 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.View
                     cache.load();
 
                     try {
-                        if (cache.getLocationID() != location.id) {
-                            cache.clear();
-                            cache.setLocationID(location.id);
-                            cache.save();
-                        }
+                        cache.clear();
+                        cache.setLocationID(location.id);
+                        cache.save();
                     } catch (Exception e) {
 
                     }

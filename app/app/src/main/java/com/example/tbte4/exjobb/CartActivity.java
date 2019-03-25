@@ -14,8 +14,12 @@ import android.widget.Toast;
 
 import com.example.tbte4.exjobb.adapters.CartAdapter;
 import com.example.tbte4.exjobb.adapters.FoodItemAdapter;
+import com.example.tbte4.exjobb.helpers.HttpLoader;
 import com.example.tbte4.exjobb.helpers.cacheFileHelper;
 import com.example.tbte4.exjobb.items.FoodItem;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -45,7 +49,33 @@ public class CartActivity extends AppCompatActivity {
         return true;
     }
 
-    public void buybttnPressed(Button bttn) {
+    public void buybttnPressed(View bttn) {
+        order = new cacheFileHelper(this, R.string.cache_file_name);
+        order.load();
+        try {
+            ArrayList<FoodItem> cart = order.getCart();
+            JSONArray body = new JSONArray();
+            body.put(order.getLocationID());
+            for (int i = 0; i < cart.size(); i++) {
+                int id = cart.get(i).id;
+                body.put(id);
+                body.put(order.getOrder(id));
+            }
 
+            HttpLoader loader = new HttpLoader((JSONObject input)->{
+
+                /*
+                * clear cart
+                * open receipt screen */
+
+            });
+            loader.Post(body);
+            String BaseURL = getString(R.string.server_endpoint);
+            loader.execute(BaseURL+"/order");
+        } catch (Exception e) {
+            Log.v(tag, e.toString());
+            Toast toast = Toast.makeText(this, R.string.err_conn, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }

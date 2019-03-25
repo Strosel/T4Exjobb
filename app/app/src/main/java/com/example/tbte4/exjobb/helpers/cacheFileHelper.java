@@ -149,18 +149,19 @@ public class cacheFileHelper {
     }
 
     public ArrayList<FoodItem> getCart() throws ExecutionException, InterruptedException, JSONException {
-        String req = "";
+        JSONArray arr = new JSONArray();
         Iterator<String> keys = json.keys();
-        while(keys.hasNext()) {
-            String key = keys.next();
-            req += "key=" + key + "&";
-        }
-        if (req.equals(""))
-            return new ArrayList<FoodItem>();
         String BaseURL = ctx.getString(R.string.server_endpoint);
         HttpLoader loader = new HttpLoader((JSONObject input) -> {});
-        JSONObject json = loader.execute(BaseURL+"/MenuItems?"+ req).get();
-        JSONArray arr = json.getJSONArray("menu");
+
+        while(keys.hasNext()) {
+            String key = keys.next();
+            if (key.equals("location"))
+                continue;
+            JSONObject json = loader.execute(BaseURL+"/MenuItem?id="+ key).get();
+            arr.put(json);
+        }
+
         return FoodItem.FoodItemListBuilder(arr);
     }
 
