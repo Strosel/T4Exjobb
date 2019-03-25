@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Network Name="STDSettingsHMI" Revision="2.0">
+	<!-- List of Components in this network -->
+	<Components>
+		<Object
+			Name       = "GlobalScreen1"
+			GUID       = "{206CFC57-2AB0-4362-9A36-EF246C884072}"
+			Class      = "ProjectGlobal"
+			Position   = "(900,960)"
+			Visualized = "true">
+			<Channels>
+				<Server Name="ActIma"/>
+				<Server Name="ActScreen"/>
+				<Server Name="ActWindow"/>
+				<Server Name="ExtStationNumber" Value="-1"/>
+				<Server Name="HostLanguage"/>
+				<Server Name="HostLanguage2"/>
+				<Server Name="HostLanguage3"/>
+				<Server Name="IP4Communication"/>
+				<Server Name="OwnStationNumber" Value="-1"/>
+				<Server Name="ProjectIsReady"/>
+				<Server Name="Server0"/>
+				<Client Name="ccEventQueue"/>
+				<Client Name="ccSystemLogging"/>
+				<Client Name="coGraphic"/>
+				<Client Name="Lse"/>
+				<Client Name="ProjectReady" Value="0"/>
+				<Client Name="SigCLib"/>
+				<Client Name="SysDate"/>
+				<Client Name="SysTime"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="_base" GUID="{FDF7FBF3-7B29-4010-BA5F-F7F4F7C2B928}" Class="_Global">
+							<Channels>
+								<Server Name="Server0"/>
+								<Client Name="Lse"/>
+							</Channels>
+						</Object>
+						<Object Name="OffDate" GUID="{98FA88F6-930B-4CC6-8AE9-F02D5DB59415}" Class="Ram">
+							<Channels>
+								<Server Name="Data"/>
+							</Channels>
+						</Object>
+						<Object Name="OffTime" GUID="{174EEAFB-6D7C-4C2C-84EA-F68038040918}" Class="Ram">
+							<Channels>
+								<Server Name="Data"/>
+							</Channels>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+		<Object
+			Name           = "SyncTimeHMI"
+			GUID           = "{C34E219B-F9BC-4722-B2DC-94BF36612973}"
+			Class          = "_SyncTimeHMI"
+			Position       = "(900,180)"
+			Visualized     = "true"
+			Remotely       = "true"
+			BackgroundTime = "100 ms">
+			<Channels>
+				<Server Name="sSyncDate"/>
+				<Server Name="sSyncTime"/>
+				<Client Name="ActDate"/>
+				<Client Name="ActTime"/>
+				<Client Name="SetDate"/>
+				<Client Name="SetTime"/>
+			</Channels>
+		</Object>
+		<Object
+			Name       = "USBDetection1"
+			GUID       = "{3624207A-5551-4231-8D3C-55F1B65B8246}"
+			Class      = "USBDetection"
+			Position   = "(900,540)"
+			Visualized = "true">
+			<Channels>
+				<Server Name="DriveIndex"/>
+				<Server Name="DriveLetter"/>
+				<Server Name="DriveListError"/>
+				<Server Name="Server0"/>
+				<Server Name="USBdetected"/>
+				<Client Name="FileSys"/>
+				<Client Name="Lse"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="_base" GUID="{56E9436D-D72C-443B-9EF7-926E2A8F6D47}" Class="_Global">
+							<Channels>
+								<Server Name="Server0"/>
+								<Client Name="Lse"/>
+							</Channels>
+						</Object>
+						<Object Name="USBDriveLetter" GUID="{1C411560-E619-459A-981E-49A8E0D9D73D}" Class="String">
+							<Channels>
+								<Server Name="Data"/>
+								<Client Name="SingleRealloc" Value="1"/>
+							</Channels>
+							<!-- List of Networks in this component -->
+							<Networks>
+								<Network>
+									<!-- List of Components in this network -->
+									<Components>
+										<Object Name="_base" GUID="{B9D2D328-1416-469A-BE13-9F6CBBB1958D}" Class="StringInternal">
+											<Channels>
+												<Server Name="Data"/>
+												<Client Name="DataBuffer"/>
+												<Client Name="SingleRealloc" Value="1"/>
+											</Channels>
+											<!-- List of Networks in this component -->
+											<Networks>
+												<Network>
+													<!-- List of Components in this network -->
+													<Components>
+														<Object Name="_base" GUID="{6CBDDE57-D222-420A-BC45-D2266096244E}" Class="VirtualBaseInit">
+															<Channels>
+																<Server Name="Data"/>
+															</Channels>
+														</Object>
+													</Components>
+													<Connections>
+													</Connections>
+												</Network>
+											</Networks>
+										</Object>
+										<Object Name="MerkerEx0" GUID="{53955FF7-8ABE-4B49-B914-227100C3FDEF}" Class="MerkerEx">
+											<Channels>
+												<Server Name="m_udLength"/>
+												<Client Name="ThreadSafe" Value="0"/>
+											</Channels>
+										</Object>
+									</Components>
+									<Connections>
+									</Connections>
+								</Network>
+							</Networks>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+	</Components>
+	<!-- List of multimaster components in this network -->
+	<RemoteComponents>
+		<RemoteObject Name="MachineControl.SyncTimePLC.SyncDate" Position="(90,390)" Station="MachineControl" Server="SyncTimePLC.SyncDate" Objectsize="660"/>
+		<RemoteObject Name="MachineControl.SyncTimePLC.SyncTime" Position="(90,450)" Station="MachineControl" Server="SyncTimePLC.SyncTime" Objectsize="660"/>
+	</RemoteComponents>
+	<Comments>
+		<Comment Position="(120,90)" Size="(1470,60)" Text="Global Settings"/>
+	</Comments>
+	<!-- List of Connections in this network -->
+	<Connections>
+		<Connection Source="USBDetection1.Lse" Destination="Lse.Lse"/>
+		<Connection Source="SyncTimeHMI.ActDate" Destination="SysDateTime.SysDate"/>
+		<Connection Source="SyncTimeHMI.ActTime" Destination="SysDateTime.SysTime"/>
+		<Connection Source="GlobalScreen1.SysDate" Destination="SysDateTime.SysDate"/>
+		<Connection Source="GlobalScreen1.Lse" Destination="Lse.Lse"/>
+		<Connection Source="GlobalScreen1.SysTime" Destination="SysDateTime.SysTime"/>
+		<Connection Station="MachineControl" RemoteServer="SyncTimePLC.SyncDate" Source="SyncTimeHMI.SetDate" Destination="MachineControl%SyncTimePLC%SyncDate" Vertices="(900,390),(766,420),"/>
+		<Connection Station="MachineControl" RemoteServer="SyncTimePLC.SyncTime" Source="SyncTimeHMI.SetTime" Destination="MachineControl%SyncTimePLC%SyncTime" Vertices="(900,450),(766,480),"/>
+	</Connections>
+	<!-- Headerfiles -->
+	<Options>
+	</Options>
+	<RevDoku>
+		<Owner Company="Sigmatek" Author="KaiAnd"/>
+		<Dokumentation Revision="2.0" Date="2018-02-07" Author="KaiAnd" Company="Sigmatek" Description="new timesync procedure"/>
+		<Dokumentation Revision="1.0" Date="2016-05-10" Author="KaiAnd" Company="Sigmatek" Description="start release"/>
+	</RevDoku>
+</Network>

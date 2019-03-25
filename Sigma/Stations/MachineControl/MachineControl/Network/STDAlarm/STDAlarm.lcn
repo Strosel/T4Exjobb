@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Network Name="STDAlarm" Revision="1.0">
+	<!-- List of Components in this network -->
+	<Components>
+		<Object
+			Name       = "_AlarmXBuffer1"
+			GUID       = "{84FA2014-B682-47C3-BFF8-E3632D13DE50}"
+			Class      = "_AlarmXBuffer"
+			Position   = "(780,240)"
+			Visualized = "false"
+			CyclicTime = "10 ms">
+			<Channels>
+				<Server Name="ClassSvr"/>
+				<Server Name="QuitAll"/>
+				<Server Name="QuitAllEx"/>
+				<Server Name="QuitGroup"/>
+				<Server Name="QuitGroupEx"/>
+				<Client Name="No" Value="500"/>
+			</Channels>
+		</Object>
+		<Object
+			Name       = "BatterieLow_Error"
+			GUID       = "{1FDC253B-2658-4EB1-B5F4-A0215FC441DC}"
+			Class      = "_AlarmX0Para"
+			Position   = "(180,1260)"
+			Visualized = "true"
+			Remotely   = "true">
+			<Channels>
+				<Server Name="ClassSvr"/>
+				<Client Name="Acknow"/>
+				<Client Name="Config" Value="0"/>
+				<Client Name="Group"/>
+			</Channels>
+		</Object>
+		<Object
+			Name       = "BatteryAlarm"
+			GUID       = "{A905F6AC-BA5C-4728-BC47-CB6F94AEC678}"
+			Class      = "UserAlarmGenerator"
+			Position   = "(870,1260)"
+			Visualized = "false"
+			CyclicTime = "100 ms">
+			<Channels>
+				<Server Name="ClassSvr"/>
+				<Client Name="In_mode" Value="0"/>
+				<Client Name="In_status" Value="0"/>
+				<Client Name="Out_alarm"/>
+			</Channels>
+		</Object>
+	</Components>
+	<Comments>
+		<Comment Position="(120,150)" Size="(2040,930)" Text="Don&apos;t change object name&#13;&#10;"/>
+		<Comment Position="(120,1140)" Size="(2040,90)" Text="Alarmobjects"/>
+	</Comments>
+	<!-- List of Connections in this network -->
+	<Connections>
+		<Connection Source="BatteryAlarm.In_status" Destination="STDPLC_InfoMC1.BatteryOk"/>
+		<Connection Source="BatteryAlarm.Out_alarm" Destination="BatterieLow_Error.ClassSvr" Vertices="(870,1350),(524,1350),"/>
+	</Connections>
+	<!-- Headerfiles -->
+	<Options>
+	</Options>
+	<RevDoku>
+		<Owner Company="Sigmatek" Author="KaiAnd"/>
+		<Dokumentation Revision="1.0" Date="2016-05-10" Author="KaiAnd" Company="Sigmatek" Description="start release"/>
+	</RevDoku>
+</Network>

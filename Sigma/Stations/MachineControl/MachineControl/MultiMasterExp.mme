@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<RemoteStation
+	PrjRev   = "0.0"
+	Project  = "MachineControl"
+	IP       = "127.0.0.1"
+	Filename = "C:\Users\TBTE4\Documents\Exjobb\Sigma\Stations\MachineControl\MachineControl\MachineControl.lcp">
+	<RemoteServers>
+		<RemoteServer Name="Reader_main.TaskName" GUID_Svr="{505801B5-33F8-44EC-BA56-99EAC85FE0FB}" DataType="UDINT" GUID_Obj="{448BB4D6-338A-48C6-BC63-07B0A2B5FF68}" WriteProtected="true" Comment="shows task information&#13;&#10;-) use object in cyclic task&#13;&#10;-) use object in async task&#13;&#10;-) task deactivated&#13;&#10;-) async task error status (error creating async task)&#13;&#10;&#13;&#10;In case of using the object in async task, this name is also listed in PLCTraceView"/>
+		<RemoteServer Name="Reader_main.SemaName01" GUID_Svr="{B775AD7C-58EB-4B8E-8F93-6A68FE5D4FCA}" DataType="UDINT" GUID_Obj="{448BB4D6-338A-48C6-BC63-07B0A2B5FF68}" WriteProtected="true" Comment="name of mutex to save the internal connection buffer&#13;&#10;&#13;&#10;This name is also listed in PLCTraceView"/>
+		<RemoteServer Name="Reader_main.SemaName02" GUID_Svr="{5179BD8F-F0F7-4ECA-9FC4-5EF66AA5AF90}" DataType="UDINT" GUID_Obj="{448BB4D6-338A-48C6-BC63-07B0A2B5FF68}" WriteProtected="true" Comment="name of mutex to save the internal connection settings (socket options)&#13;&#10;&#13;&#10;This name is also listed in PLCTraceView"/>
+		<RemoteServer Name="Reader_main\_base\StrSemaName01.Data" GUID_Svr="{81990015-D505-4977-9326-733789F9FEAA}" Class="VirtualBaseInit" DataType="UDINT" GUID_Obj="{448BB4D6-338A-48C6-BC63-07B0A2B5FF68}\{91D67C6F-0367-4693-9CB1-6C21984F97D8}\{299AFE23-53C0-4268-B520-661EA498CF23}" Type="Object Channel" MMType="String" Comment="use this channel to access the string functions"/>
+		<RemoteServer Name="Reader_main\_base\StrSemaName02.Data" GUID_Svr="{81990015-D505-4977-9326-733789F9FEAA}" Class="VirtualBaseInit" DataType="UDINT" GUID_Obj="{448BB4D6-338A-48C6-BC63-07B0A2B5FF68}\{91D67C6F-0367-4693-9CB1-6C21984F97D8}\{75EFD2B9-8A72-4ADD-B553-20298AB8A232}" Type="Object Channel" MMType="String" Comment="use this channel to access the string functions"/>
+		<RemoteServer Name="Reader_main\_base\StrTaskName.Data" GUID_Svr="{81990015-D505-4977-9326-733789F9FEAA}" Class="VirtualBaseInit" DataType="UDINT" GUID_Obj="{448BB4D6-338A-48C6-BC63-07B0A2B5FF68}\{91D67C6F-0367-4693-9CB1-6C21984F97D8}\{510AA27F-2062-4B46-A6C5-CE04D658B1CE}" Type="Object Channel" MMType="String" Comment="use this channel to access the string functions"/>
+		<RemoteServer Name="BatterieLow_Error.ClassSvr" GUID_Svr="{BE689487-005D-4C4C-8B98-759BCFF5A930}" Class="_AlarmX0Para" DataType="DINT" GUID_Obj="{1FDC253B-2658-4EB1-B5F4-A0215FC441DC}" Type="Object Channel"/>
+		<RemoteServer Name="AlarmCommunication.ClassSvr" GUID_Svr="{BE689487-005D-4C4C-8B98-759BCFF5A930}" Class="_AlarmX0Para" DataType="DINT" GUID_Obj="{3A3D9FBF-E825-430E-88F9-EFDDD3898420}" Type="Object Channel"/>
+		<RemoteServer Name="_SIG_LSL_CMultimasterState1.Terminal" GUID_Svr="{703A8C69-E610-434A-A566-76AC31FDAE38}" DataType="_SIG_LSL_CMultimasterState::_MMStateSvr" GUID_Obj="{05A75072-960C-427A-BF07-886D906B25DA}" WriteProtected="true"/>
+		<RemoteServer Name="_SIG_LSL_CMultimasterState1.PLC" GUID_Svr="{97119E89-B2D9-484B-B5C6-900947D1F92A}" DataType="_SIG_LSL_CMultimasterState::_MMStateSvr" GUID_Obj="{05A75072-960C-427A-BF07-886D906B25DA}" WriteProtected="true"/>
+		<RemoteServer Name="SyncTimePLC.SyncDate" GUID_Svr="{2AF2D155-09B5-4068-B68C-C099CF73156D}" DataType="HDINT" GUID_Obj="{EAC7E1DA-C454-4C91-8D5A-E20AF6A3B3BC}" Comment="source date (for input)"/>
+		<RemoteServer Name="SyncTimePLC.SyncTime" GUID_Svr="{F191E791-F1DE-4A48-8893-FE7C6584A1E9}" DataType="HDINT" GUID_Obj="{EAC7E1DA-C454-4C91-8D5A-E20AF6A3B3BC}" Comment="source time (for input)"/>
+	</RemoteServers>
+</RemoteStation>

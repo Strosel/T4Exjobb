@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Network Name="NewAgeAlarmVis" Revision="1.0">
+	<!-- List of Components in this network -->
+	<Components>
+		<Object
+			Name       = "_BitAlarmTitle"
+			GUID       = "{2094671E-A3ED-4628-B4A3-57B86116AB0C}"
+			Class      = "_Bit32"
+			Position   = "(150,540)"
+			Visualized = "true">
+			<Channels>
+				<Server Name="Data" Value="2#11101"/>
+			</Channels>
+		</Object>
+		<Object
+			Name       = "AlarmDisplayList"
+			GUID       = "{82C16D43-2CD8-42F0-85DD-E06E84AB20D9}"
+			Class      = "AlarmDisplayList"
+			Position   = "(1710,300)"
+			Visualized = "true">
+			<Channels>
+				<Server Name="Acknowledge"/>
+				<Server Name="AlaTxtLong"/>
+				<Server Name="AlaTxtShort"/>
+				<Server Name="Delete"/>
+				<Server Name="HelpTxt"/>
+				<Server Name="NoActive"/>
+				<Server Name="Refresh"/>
+				<Server Name="Server0"/>
+				<Server Name="SortAlgorithm"/>
+				<Client Name="ccAlarmChanged"/>
+				<Client Name="coAlarmTitle" Value="0"/>
+				<Client Name="ColumnChoice"/>
+				<Client Name="coSystemLogging"/>
+				<Client Name="Lse"/>
+				<Client Name="MaxNo" Value="100"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="_base" GUID="{1330FF43-46DA-41B9-B8EA-BAE527386023}" Class="_AlarmDisplay">
+							<Channels>
+								<Server Name="Acknowledge"/>
+								<Server Name="ActPos"/>
+								<Server Name="Delete"/>
+								<Server Name="NoActive"/>
+								<Server Name="Refresh"/>
+								<Server Name="Server0"/>
+								<Server Name="SortAlgorithm"/>
+								<Client Name="Filter" Value="2#01101"/>
+								<Client Name="HistoryTemporary" Value="1"/>
+								<Client Name="Lse"/>
+								<Client Name="MaxNo" Value="100"/>
+							</Channels>
+							<!-- List of Networks in this component -->
+							<Networks>
+								<Network>
+									<!-- List of Components in this network -->
+									<Components>
+										<Object Name="_base" GUID="{FC597408-EBE4-11D6-8BC9-0048545E8899}" Class="_ScrollArea">
+											<Channels>
+												<Server Name="ActPos"/>
+												<Server Name="Refresh"/>
+												<Server Name="Server0"/>
+												<Client Name="ExtendedScrollBar" Value="1"/>
+												<Client Name="LineHighness"/>
+												<Client Name="LineWidth" Value="10000"/>
+												<Client Name="Lse"/>
+												<Client Name="VerticalLevel" Value="1"/>
+											</Channels>
+											<!-- List of Networks in this component -->
+											<Networks>
+												<Network>
+													<!-- List of Components in this network -->
+													<Components>
+														<Object Name="_base" GUID="{17373B4C-4288-11D7-8BC9-0048545E8899}" Class="_MyIO">
+															<Channels>
+																<Server Name="Refresh"/>
+																<Server Name="Server0"/>
+																<Client Name="Graphic"/>
+																<Client Name="Lse"/>
+															</Channels>
+														</Object>
+													</Components>
+													<Connections>
+													</Connections>
+												</Network>
+											</Networks>
+										</Object>
+									</Components>
+									<Connections>
+									</Connections>
+								</Network>
+							</Networks>
+						</Object>
+						<Object Name="AlarmTxtLong" GUID="{208F6BFE-2253-4340-BA13-3086C0D6CDF0}" Class="String">
+							<Channels>
+								<Server Name="Data"/>
+								<Client Name="SingleRealloc" Value="1"/>
+							</Channels>
+							<!-- List of Networks in this component -->
+							<Networks>
+								<Network>
+									<!-- List of Components in this network -->
+									<Components>
+										<Object Name="_base" GUID="{B9D2D328-1416-469A-BE13-9F6CBBB1958D}" Class="StringInternal">
+											<Channels>
+												<Server Name="Data"/>
+												<Client Name="DataBuffer"/>
+												<Client Name="SingleRealloc" Value="1"/>
+											</Channels>
+											<!-- List of Networks in this component -->
+											<Networks>
+												<Network>
+													<!-- List of Components in this network -->
+													<Components>
+														<Object Name="_base" GUID="{6CBDDE57-D222-420A-BC45-D2266096244E}" Class="VirtualBaseInit">
+															<Channels>
+																<Server Name="Data"/>
+															</Channels>
+														</Object>
+													</Components>
+													<Connections>
+													</Connections>
+												</Network>
+											</Networks>
+										</Object>
+										<Object Name="MerkerEx0" GUID="{53955FF7-8ABE-4B49-B914-227100C3FDEF}" Class="MerkerEx">
+											<Channels>
+												<Server Name="m_udLength"/>
+												<Client Name="ThreadSafe" Value="0"/>
+											</Channels>
+										</Object>
+									</Components>
+									<Connections>
+									</Connections>
+								</Network>
+							</Networks>
+						</Object>
+						<Object Name="AlarmTxtShort" GUID="{EF10F060-8F73-4E50-8D5A-6F46839DCA5D}" Class="String">
+							<Channels>
+								<Server Name="Data"/>
+								<Client Name="SingleRealloc" Value="1"/>
+							</Channels>
+							<!-- List of Networks in this component -->
+							<Networks>
+								<Network>
+									<!-- List of Components in this network -->
+									<Components>
+										<Object Name="_base" GUID="{B9D2D328-1416-469A-BE13-9F6CBBB1958D}" Class="StringInternal">
+											<Channels>
+												<Server Name="Data"/>
+												<Client Name="DataBuffer"/>
+												<Client Name="SingleRealloc" Value="1"/>
+											</Channels>
+											<!-- List of Networks in this component -->
+											<Networks>
+												<Network>
+													<!-- List of Components in this network -->
+													<Components>
+														<Object Name="_base" GUID="{6CBDDE57-D222-420A-BC45-D2266096244E}" Class="VirtualBaseInit">
+															<Channels>
+																<Server Name="Data"/>
+															</Channels>
+														</Object>
+													</Components>
+													<Connections>
+													</Connections>
+												</Network>
+											</Networks>
+										</Object>
+										<Object Name="MerkerEx0" GUID="{53955FF7-8ABE-4B49-B914-227100C3FDEF}" Class="MerkerEx">
+											<Channels>
+												<Server Name="m_udLength"/>
+												<Client Name="ThreadSafe" Value="0"/>
+											</Channels>
+										</Object>
+									</Components>
+									<Connections>
+									</Connections>
+								</Network>
+							</Networks>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+		<Object
+			Name       = "AlarmTitle"
+			GUID       = "{CF4097D7-B39A-4ACD-A972-C2EF022CFC31}"
+			Class      = "AlarmTitleLine"
+			Position   = "(690,480)"
+			Visualized = "true">
+			<Channels>
+				<Server Name="Refresh"/>
+				<Server Name="Server0"/>
+				<Client Name="ColumnChoice"/>
+				<Client Name="coSystemLogging"/>
+				<Client Name="Lse"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="_base" GUID="{9FBE1808-9D98-4DC4-AA20-776CDF6B6747}" Class="TitleLine">
+							<Channels>
+								<Server Name="Refresh"/>
+								<Server Name="Server0"/>
+								<Client Name="ColumnChoice"/>
+								<Client Name="coSystemLogging"/>
+								<Client Name="Lse"/>
+							</Channels>
+							<!-- List of Networks in this component -->
+							<Networks>
+								<Network>
+									<!-- List of Components in this network -->
+									<Components>
+										<Object Name="_base" GUID="{963E5410-E12F-4EDF-9EAB-DAFD7C99C40A}" Class="_MyIO">
+											<Channels>
+												<Server Name="Refresh"/>
+												<Server Name="Server0"/>
+												<Client Name="Graphic"/>
+												<Client Name="Lse"/>
+											</Channels>
+										</Object>
+									</Components>
+									<Connections>
+									</Connections>
+								</Network>
+							</Networks>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+	</Components>
+	<Comments>
+		<Comment Position="(150,60)" Size="(2220,120)" Text="===================================================================================================================&#13;&#10;Alarming VISU"/>
+	</Comments>
+	<!-- List of Connections in this network -->
+	<Connections>
+		<Connection Source="AlarmDisplayList.coAlarmTitle" Destination="AlarmTitle.Server0" Vertices="(1710,570),(1246,570),"/>
+		<Connection Source="AlarmTitle.Lse" Destination="Lse.Lse"/>
+		<Connection Source="AlarmDisplayList.coSystemLogging" Destination="SystemLogging1.ClassSvr"/>
+		<Connection Source="AlarmTitle.coSystemLogging" Destination="SystemLogging1.ClassSvr"/>
+		<Connection Source="AlarmTitle.ColumnChoice" Destination="_BitAlarmTitle.Data" Vertices="(690,630),(450,630),"/>
+		<Connection Source="AlarmDisplayList.ColumnChoice" Destination="_BitAlarmTitle.Data" Vertices="(1710,510),(1410,510),(1410,390),(540,390),(540,630),(450,630),"/>
+		<Connection Source="AlarmDisplayList.Lse" Destination="Lse.Lse"/>
+	</Connections>
+	<!-- Headerfiles -->
+	<Options>
+	</Options>
+	<RevDoku>
+		<Owner Company="Sigmatek" Author="KaiAnd"/>
+		<Dokumentation Revision="1.0" Date="2016-05-09" Author="KaiAnd" Company="Sigmatek" Description="start release"/>
+	</RevDoku>
+</Network>

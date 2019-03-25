@@ -1,0 +1,12 @@
+<XML_ONLINE_CONFIGURATION>
+<HEADER VERSION="108"/>
+<SETTINGS>
+<ONLINE>
+<TCPIP ConfigName="exjobb" BUS="3" Password="" IP="192.168.111.52" PORT="1954" SomeFlags="0" PLCID="" Repeater="0" Favorite="1"/>
+</ONLINE>
+<DOWNLOAD/>
+<PROPERTIES DownlEqualOnl="1"/>
+</SETTINGS>
+<TCPIP ConfigName="exjobb" BUS="3" Password="" IP="192.168.111.52" PORT="1954" SomeFlags="0" PLCID="" Repeater="0" Favorite="1"/>
+</XML_ONLINE_CONFIGURATION>
+

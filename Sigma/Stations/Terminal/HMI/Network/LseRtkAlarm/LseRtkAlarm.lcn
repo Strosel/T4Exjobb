@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Network Name="LseRtkAlarm" Revision="0.0">
+	<!-- List of Components in this network -->
+	<Components>
+		<Object
+			Name       = "_AlarmXBuffer1"
+			GUID       = "{EBE3C820-056F-4CC7-868A-DCECA5C3956A}"
+			Class      = "_AlarmXBuffer"
+			Position   = "(330,240)"
+			Visualized = "false">
+			<Channels>
+				<Server Name="ClassSvr"/>
+				<Server Name="QuitAll"/>
+				<Server Name="QuitAllEx"/>
+				<Server Name="QuitGroup"/>
+				<Server Name="QuitGroupEx"/>
+				<Client Name="No" Value="64"/>
+			</Channels>
+		</Object>
+		<Object
+			Name       = "EmergencyStop"
+			GUID       = "{64ED9B0C-9810-4E9A-8F86-F3EEEA056ED8}"
+			Class      = "_AlarmX0Para"
+			Position   = "(840,240)"
+			Visualized = "false">
+			<Channels>
+				<Server Name="ClassSvr"/>
+				<Client Name="Acknow"/>
+				<Client Name="Config" Value="1"/>
+				<Client Name="Group"/>
+			</Channels>
+		</Object>
+		<Object
+			Name       = "ServerError"
+			GUID       = "{88E29055-C778-4FF6-8490-DD39639BFF27}"
+			Class      = "_AlarmX1Para"
+			Position   = "(1350,240)"
+			Visualized = "false">
+			<Channels>
+				<Server Name="ClassSvr"/>
+				<Client Name="Acknow"/>
+				<Client Name="Config" Value="2"/>
+				<Client Name="Group"/>
+				<Client Name="Para1"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="_base" GUID="{59010D14-43B0-4579-A45C-5A4B8DD3E275}" Class="_AlarmX0Para">
+							<Channels>
+								<Server Name="ClassSvr"/>
+								<Client Name="Acknow"/>
+								<Client Name="Config" Value="2"/>
+								<Client Name="Group"/>
+							</Channels>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+	</Components>
+	<Comments>
+		<Comment Position="(150,90)" Size="(1800,60)" Text="PLC part of the alarm system"/>
+	</Comments>
+	<!-- List of Connections in this network -->
+	<Connections>
+	</Connections>
+	<!-- Headerfiles -->
+	<Options>
+	</Options>
+</Network>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Network Name="LseRtkMain" Revision="0.0">
+	<!-- List of Components in this network -->
+	<Components>
+		<Object
+			Name           = "Lse"
+			GUID           = "{1BAB91AD-314E-468B-AFDB-0708C6E2B4A0}"
+			Class          = "_Lse"
+			Position       = "(90,120)"
+			Visualized     = "true"
+			BackgroundTime = "always">
+			<Channels>
+				<Server Name="ActivateBubbleHelp"/>
+				<Server Name="AmericanDateFormat" Value="0"/>
+				<Server Name="AmericanTimeFormat"/>
+				<Server Name="CommaSign"/>
+				<Server Name="CompilerVersion"/>
+				<Server Name="CursorWrapHorizontal"/>
+				<Server Name="CursorWrapVertical"/>
+				<Server Name="DelayScreenSaver"/>
+				<Server Name="DirectionOnEnter"/>
+				<Server Name="GotAlarm"/>
+				<Server Name="Language"/>
+				<Server Name="Lse"/>
+				<Server Name="LseProjectRevision"/>
+				<Server Name="LseVersion"/>
+				<Server Name="NoExternCom"/>
+				<Server Name="OfflineMode"/>
+				<Server Name="OpSysVersion"/>
+				<Server Name="SeekAlgorithm" Value="1"/>
+				<Server Name="SystemMessage"/>
+				<Client Name="EventProcessor"/>
+				<Client Name="Gbcd"/>
+				<Client Name="JpgLib"/>
+				<Client Name="LseReady"/>
+			</Channels>
+		</Object>
+		<Object
+			Name           = "SysDateTime"
+			GUID           = "{0807F2D5-CFA0-4CAE-B6B2-25B6103F551B}"
+			Class          = "_SysDateTime"
+			Position       = "(780,120)"
+			Visualized     = "true"
+			BackgroundTime = "100 ms">
+			<Channels>
+				<Server Name="DayOfWeek"/>
+				<Server Name="SysDate"/>
+				<Server Name="SysTime"/>
+				<Client Name="DoSummerTime" Value="0"/>
+				<Client Name="System"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="SummerTime" GUID="{8D5F918A-029E-4326-8E46-99E55244583F}" Class="Ram">
+							<Channels>
+								<Server Name="Data"/>
+							</Channels>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+	</Components>
+	<Comments>
+	</Comments>
+	<!-- List of Connections in this network -->
+	<Connections>
+	</Connections>
+	<!-- Headerfiles -->
+	<Options>
+	</Options>
+</Network>

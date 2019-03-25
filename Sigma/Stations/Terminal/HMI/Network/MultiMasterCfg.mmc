@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<MultiMasterMgr>
+	<RemoteStations>
+		<RemoteStation
+			Name     = "MachineControl"
+			PrjRev   = "0.0"
+			Project  = "MachineControl"
+			IP       = "127.0.0.1"
+			Filename = ".\MachineControl\MachineControl\MachineControl.lcp">
+			<RemoteServers>
+				<RemoteServer Name="SyncTimePLC.SyncDate" GUID_Svr="{2AF2D155-09B5-4068-B68C-C099CF73156D}" DataType="HDINT" GUID_Obj="{EAC7E1DA-C454-4C91-8D5A-E20AF6A3B3BC}" Comment="source date (for input)"/>
+				<RemoteServer Name="SyncTimePLC.SyncTime" GUID_Svr="{F191E791-F1DE-4A48-8893-FE7C6584A1E9}" DataType="HDINT" GUID_Obj="{EAC7E1DA-C454-4C91-8D5A-E20AF6A3B3BC}" Comment="source time (for input)"/>
+			</RemoteServers>
+		</RemoteStation>
+	</RemoteStations>
+</MultiMasterMgr>

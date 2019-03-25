@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Network Name="NewAgeSettings" Revision="1.0">
+	<!-- List of Components in this network -->
+	<Components>
+		<Object
+			Name       = "_LanguageSelection1"
+			GUID       = "{304A4FA2-6419-4F1E-88BD-174E69ACF01E}"
+			Class      = "_LanguageSelection"
+			Position   = "(201,600)"
+			Visualized = "true">
+			<Channels>
+				<Server Name="ActPos"/>
+				<Server Name="Refresh"/>
+				<Server Name="Server0"/>
+				<Client Name="Config" Value="3"/>
+				<Client Name="LineWidth" Value="70"/>
+				<Client Name="Lse"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="_base" GUID="{C532ADFD-2D8F-44E2-B571-13EDE5D52879}" Class="_ScrollArea2">
+							<Channels>
+								<Server Name="ActPos"/>
+								<Server Name="Refresh"/>
+								<Server Name="Server0"/>
+								<Client Name="ExtendedScrollBar" Value="0"/>
+								<Client Name="LineHighness" Value="30"/>
+								<Client Name="LineWidth" Value="70"/>
+								<Client Name="Lse"/>
+								<Client Name="VerticalLevel"/>
+							</Channels>
+							<!-- List of Networks in this component -->
+							<Networks>
+								<Network>
+									<!-- List of Components in this network -->
+									<Components>
+										<Object Name="_base" GUID="{320FDD86-597C-43AD-A600-2F311A5C5FC2}" Class="_ScrollArea">
+											<Channels>
+												<Server Name="ActPos"/>
+												<Server Name="Refresh"/>
+												<Server Name="Server0"/>
+												<Client Name="ExtendedScrollBar" Value="0"/>
+												<Client Name="LineHighness" Value="30"/>
+												<Client Name="LineWidth" Value="70"/>
+												<Client Name="Lse"/>
+												<Client Name="VerticalLevel"/>
+											</Channels>
+											<!-- List of Networks in this component -->
+											<Networks>
+												<Network>
+													<!-- List of Components in this network -->
+													<Components>
+														<Object Name="_base" GUID="{17373B4C-4288-11D7-8BC9-0048545E8899}" Class="_MyIO">
+															<Channels>
+																<Server Name="Refresh"/>
+																<Server Name="Server0"/>
+																<Client Name="Graphic"/>
+																<Client Name="Lse"/>
+															</Channels>
+														</Object>
+													</Components>
+													<Connections>
+													</Connections>
+												</Network>
+											</Networks>
+										</Object>
+									</Components>
+									<Connections>
+									</Connections>
+								</Network>
+							</Networks>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+		<Object
+			Name       = "CleanScreenTime"
+			GUID       = "{C962473B-7DBE-4C34-854E-1558A9515346}"
+			Class      = "Ram"
+			Position   = "(1860,240)"
+			Visualized = "true">
+			<Channels>
+				<Server Name="Data" Value="5"/>
+			</Channels>
+		</Object>
+		<Object
+			Name       = "KeyPadANumStdTemplate"
+			GUID       = "{C8074AFC-739E-4193-A138-7788DA672E6F}"
+			Class      = "KeyPadANumStdTemplate"
+			Position   = "(1860,540)"
+			Visualized = "true"
+			Remotely   = "true">
+			<Channels>
+				<Server Name="Screen"/>
+				<Client Name="Graphic"/>
+				<Client Name="ImA" Value="ImA_Window"/>
+				<Client Name="Lse"/>
+				<Client Name="No" Value="_WIN_EDITOR_ANUMERIC"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="_base" GUID="{F4505D9D-D9D1-4970-B163-1197B6B0BAD7}" Class="_Screen">
+							<Channels>
+								<Server Name="Screen"/>
+								<Client Name="ImA" Value="ImA_Window"/>
+								<Client Name="Lse"/>
+								<Client Name="No" Value="_WIN_EDITOR_ANUMERIC"/>
+							</Channels>
+						</Object>
+						<Object Name="KeyPadImg" GUID="{283DB3C2-CDD9-458F-9ECE-42191854ECB0}" Class="KeyPadImagesStdTemplate">
+							<Channels>
+								<Server Name="ClassSvr"/>
+							</Channels>
+							<!-- List of Networks in this component -->
+							<Networks>
+								<Network>
+									<!-- List of Components in this network -->
+									<Components>
+									</Components>
+									<Connections>
+									</Connections>
+								</Network>
+							</Networks>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+		<Object
+			Name       = "KeyPadNumStdTemplate"
+			GUID       = "{3B59F321-6931-43C7-8488-5DAB5333D8EF}"
+			Class      = "KeyPadNumStdTemplate"
+			Position   = "(1080,600)"
+			Visualized = "true"
+			Remotely   = "true">
+			<Channels>
+				<Server Name="Screen"/>
+				<Client Name="ImA" Value="IMA_WINDOW"/>
+				<Client Name="Lse"/>
+				<Client Name="No" Value="_WIN_EDITOR_NUMERIC"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="_base" GUID="{7362EE10-88F4-489D-8D03-7DDDA495BA07}" Class="_Screen">
+							<Channels>
+								<Server Name="Screen"/>
+								<Client Name="ImA" Value="IMA_WINDOW"/>
+								<Client Name="Lse"/>
+								<Client Name="No" Value="_WIN_EDITOR_NUMERIC"/>
+							</Channels>
+						</Object>
+						<Object Name="KeyPadImg" GUID="{4EB7A5A3-6440-40D2-A85B-635738D0ADB7}" Class="KeyPadImagesStdTemplate">
+							<Channels>
+								<Server Name="ClassSvr"/>
+							</Channels>
+							<!-- List of Networks in this component -->
+							<Networks>
+								<Network>
+									<!-- List of Components in this network -->
+									<Components>
+									</Components>
+									<Connections>
+									</Connections>
+								</Network>
+							</Networks>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+		<Object
+			Name       = "ScreenSaver1"
+			GUID       = "{CF28FFE3-C049-4A8B-A7BE-45836E9592B7}"
+			Class      = "ScreenSaver"
+			Position   = "(210,240)"
+			Visualized = "true">
+			<Channels>
+				<Server Name="sDeactivateScreenSaver"/>
+				<Server Name="sDelayBacklight" Value="0"/>
+				<Server Name="sDelayScreenSaver" Value="0"/>
+				<Server Name="Server0"/>
+				<Client Name="BrightnessMinStart" Value="20"/>
+				<Client Name="Lse"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="_base" GUID="{AAFE80E0-C9E6-493D-A011-6DAD121BFAF3}" Class="_Global">
+							<Channels>
+								<Server Name="Server0"/>
+								<Client Name="Lse"/>
+							</Channels>
+						</Object>
+						<Object
+							Name           = "DisplaySettings"
+							GUID           = "{610B353F-145A-4A20-9B3B-E85D152B9433}"
+							Class          = "DisplaySettings"
+							CyclicTime     = "8 ms"
+							BackgroundTime = "always">
+							<Channels>
+								<Server Name="Brightness" Value="100"/>
+								<Server Name="ClassState"/>
+								<Server Name="LogoBluePWM"/>
+								<Server Name="LogoGreenPWM"/>
+								<Server Name="LogoRedPWM"/>
+								<Server Name="State"/>
+								<Server Name="SwitchBacklight"/>
+								<Client Name="To_Can"/>
+								<Client Name="To_Graphix"/>
+								<Client Name="To_OSKernel"/>
+								<Client Name="To_TaskObjectControl"/>
+							</Channels>
+							<!-- List of Networks in this component -->
+							<Networks>
+								<Network>
+									<!-- List of Components in this network -->
+									<Components>
+										<Object Name="_base" GUID="{918CABD7-D9D4-4008-BB8D-D4EAD78717C2}" Class="USB_DataExchange">
+											<Channels>
+												<Server Name="State"/>
+												<Client Name="To_MultiTask"/>
+												<Client Name="To_StdLib"/>
+											</Channels>
+										</Object>
+									</Components>
+									<Connections>
+									</Connections>
+								</Network>
+							</Networks>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+		<Object
+			Name       = "SystemLogging1"
+			GUID       = "{72200FE4-7DEC-403E-B956-4C7CE2910354}"
+			Class      = "SystemLogging"
+			Position   = "(180,1110)"
+			Visualized = "true">
+			<Channels>
+				<Server Name="ClassSvr"/>
+				<Server Name="DebugCnt"/>
+				<Server Name="ErrorCnt"/>
+				<Server Name="ExtLoggingActive" Value="TRUE"/>
+				<Server Name="InfoCnt"/>
+				<Server Name="WarningCnt"/>
+				<Client Name="ActivateTrace" Value="0"/>
+				<Client Name="toSysMsg"/>
+			</Channels>
+		</Object>
+		<Object
+			Name       = "TouchCalib1"
+			GUID       = "{721642B9-BB65-48B8-9ACE-815955B26E54}"
+			Class      = "TouchCalib"
+			Position   = "(1080,240)"
+			Visualized = "true">
+			<Channels>
+				<Server Name="Calibrated"/>
+				<Server Name="Refresh"/>
+				<Server Name="SelectOrderNo" Value="-1"/>
+				<Server Name="Server0"/>
+				<Server Name="State"/>
+				<Client Name="coGrafix"/>
+				<Client Name="Lse"/>
+				<Client Name="Tolerance" Value="20"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object Name="_base" GUID="{53D20DB3-C83C-4995-BC98-D400A80110BF}" Class="_MyIO">
+							<Channels>
+								<Server Name="Refresh"/>
+								<Server Name="Server0"/>
+								<Client Name="Graphic"/>
+								<Client Name="Lse"/>
+							</Channels>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+	</Components>
+	<Comments>
+		<Comment Position="(150,60)" Size="(2340,120)" Text="===================================================================================================================&#13;&#10;Display &amp; Screen / Language / Keyboards"/>
+		<Comment Position="(150,960)" Size="(690,120)" Text="==================================&#13;&#10;loggings to an eventxx file in the DIR SYSMSG"/>
+	</Comments>
+	<!-- List of Connections in this network -->
+	<Connections>
+		<Connection Source="ScreenSaver1.Lse" Destination="Lse.Lse"/>
+		<Connection Source="_LanguageSelection1.Lse" Destination="Lse.Lse"/>
+		<Connection Source="TouchCalib1.Lse" Destination="Lse.Lse"/>
+		<Connection Source="KeyPadANumStdTemplate.Lse" Destination="Lse.Lse"/>
+		<Connection Source="KeyPadNumStdTemplate.Lse" Destination="Lse.Lse"/>
+	</Connections>
+	<!-- Headerfiles -->
+	<Options>
+	</Options>
+	<RevDoku>
+		<Owner Company="Sigmatek" Author="KaiAnd"/>
+		<Dokumentation Revision="1.0" Date="2016-05-09" Author="KaiAnd" Company="Sigmatek" Description="start release"/>
+	</RevDoku>
+</Network>

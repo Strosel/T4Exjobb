@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Network Name="STDTimeSync" Revision="2.0">
+	<!-- List of Components in this network -->
+	<Components>
+		<Object
+			Name       = "_SIG_LSL_CMultimasterState1"
+			GUID       = "{05A75072-960C-427A-BF07-886D906B25DA}"
+			Class      = "_SIG_LSL_CMultimasterState"
+			Position   = "(930,240)"
+			Visualized = "true"
+			Remotely   = "true">
+			<Channels>
+				<Server Name="ClassSvr"/>
+				<Server Name="PLC"/>
+				<Server Name="Terminal"/>
+			</Channels>
+		</Object>
+		<Object
+			Name           = "SyncTimePLC"
+			GUID           = "{EAC7E1DA-C454-4C91-8D5A-E20AF6A3B3BC}"
+			Class          = "_SyncTimePLC"
+			Position       = "(1770,360)"
+			Visualized     = "false"
+			Remotely       = "true"
+			CyclicTime     = "5000 ms"
+			BackgroundTime = "10 ms">
+			<Channels>
+				<Server Name="ClassSvr"/>
+				<Server Name="SyncDate"/>
+				<Server Name="SyncTime"/>
+				<Client Name="cOnline"/>
+				<Client Name="cSetDate"/>
+				<Client Name="cSetTime"/>
+				<Client Name="cSyncDate"/>
+				<Client Name="cSyncTime"/>
+			</Channels>
+		</Object>
+		<Object
+			Name           = "SysDateTimePLC"
+			GUID           = "{676B5534-8FD4-401C-B22E-B1D0E68C5289}"
+			Class          = "_SysDateTime2"
+			Position       = "(180,270)"
+			Visualized     = "true"
+			BackgroundTime = "100 ms">
+			<Channels>
+				<Server Name="Day"/>
+				<Server Name="DayOfWeek"/>
+				<Server Name="Hour"/>
+				<Server Name="Minute"/>
+				<Server Name="Month"/>
+				<Server Name="Second"/>
+				<Server Name="SysDate"/>
+				<Server Name="SysTime"/>
+				<Server Name="Year"/>
+				<Server Name="Year2Digit"/>
+				<Client Name="DoSummerTime" Value="0"/>
+				<Client Name="System"/>
+			</Channels>
+			<!-- List of Networks in this component -->
+			<Networks>
+				<Network>
+					<!-- List of Components in this network -->
+					<Components>
+						<Object
+							Name           = "_base"
+							GUID           = "{792886C3-9329-4B74-A766-3A7890DA271F}"
+							Class          = "_SysDateTime"
+							BackgroundTime = "100 ms">
+							<Channels>
+								<Server Name="DayOfWeek"/>
+								<Server Name="SysDate"/>
+								<Server Name="SysTime"/>
+								<Client Name="DoSummerTime" Value="0"/>
+								<Client Name="System"/>
+							</Channels>
+							<!-- List of Networks in this component -->
+							<Networks>
+								<Network>
+									<!-- List of Components in this network -->
+									<Components>
+										<Object Name="SummerTime" GUID="{8D5F918A-029E-4326-8E46-99E55244583F}" Class="Ram">
+											<Channels>
+												<Server Name="Data"/>
+											</Channels>
+										</Object>
+									</Components>
+									<Connections>
+									</Connections>
+								</Network>
+							</Networks>
+						</Object>
+					</Components>
+					<Connections>
+					</Connections>
+				</Network>
+			</Networks>
+		</Object>
+	</Components>
+	<Comments>
+		<Comment Position="(1680,210)" Size="(720,120)" Text="Set source date &amp;&amp; time (system time)&#13;&#10;to the date &amp;&amp; time of Machine Control CPU"/>
+		<Comment Position="(870,150)" Size="(720,60)" Text="Status of Multi-Manager Communication of LASAL"/>
+	</Comments>
+	<!-- List of Connections in this network -->
+	<Connections>
+		<Connection Source="SyncTimePLC.cSetDate" Destination="SysDateTimePLC.SysDate" Vertices="(1770,630),(810,630),(810,360),(480,360),"/>
+		<Connection Source="SyncTimePLC.cSetTime" Destination="SysDateTimePLC.SysTime" Vertices="(1770,690),(720,690),(720,420),(480,420),"/>
+		<Connection Source="SyncTimePLC.cOnline" Destination="_SIG_LSL_CMultimasterState1.Terminal" Vertices="(1770,450),(1650,450),(1650,390),(1516,390),"/>
+	</Connections>
+	<!-- Headerfiles -->
+	<Options>
+	</Options>
+	<RevDoku>
+		<Owner Company="Sigmatek"/>
+		<Dokumentation Revision="2.0" Date="2018-02-07" Author="KaiAnd" Company="Sigmatek" Description="new timesync procedure"/>
+		<Dokumentation Revision="1.0" Date="2016-05-25" Company="Sigmatek" Description="start release"/>
+	</RevDoku>
+</Network>

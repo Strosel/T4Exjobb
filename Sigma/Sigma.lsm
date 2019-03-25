@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Solution Version="2" Name="Sigma">
+	<SlnStationFiles>
+		<File Path=".\Stations\Terminal\Terminal.lss"/>
+		<File Path=".\Stations\MachineControl\MachineControl.lss"/>
+	</SlnStationFiles>
+</Solution>

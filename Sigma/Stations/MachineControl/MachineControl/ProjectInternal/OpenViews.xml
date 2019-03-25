@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<OpenViews>
+	<View Key="Main" Type="0"/>
+	<View Key="Reader" Type="5"/>
+	<View Key="Reader" Type="2" LineNr="51"/>
+	<View Key="Reader" Type="2" LineNr="51"/>
+	<Setting Variable="OutputDebugger" Value="0"/>
+</OpenViews>

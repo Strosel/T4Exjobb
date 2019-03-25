@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<RemoteStation
+	PrjRev   = "0.0"
+	Project  = "HMI"
+	IP       = "192.168.111.52"
+	Filename = ".\Terminal\HMI\HMI.lcp">
+	<RemoteServers>
+		<RemoteServer Name="Reader1.TaskName" GUID_Svr="{505801B5-33F8-44EC-BA56-99EAC85FE0FB}" DataType="UDINT" GUID_Obj="{347890C7-B02C-4403-9804-36B4C37B3EE1}" WriteProtected="true" Comment="shows task information&#13;&#10;-) use object in cyclic task&#13;&#10;-) use object in async task&#13;&#10;-) task deactivated&#13;&#10;-) async task error status (error creating async task)&#13;&#10;&#13;&#10;In case of using the object in async task, this name is also listed in PLCTraceView"/>
+		<RemoteServer Name="Reader1.SemaName01" GUID_Svr="{B775AD7C-58EB-4B8E-8F93-6A68FE5D4FCA}" DataType="UDINT" GUID_Obj="{347890C7-B02C-4403-9804-36B4C37B3EE1}" WriteProtected="true" Comment="name of mutex to save the internal connection buffer&#13;&#10;&#13;&#10;This name is also listed in PLCTraceView"/>
+		<RemoteServer Name="Reader1.SemaName02" GUID_Svr="{5179BD8F-F0F7-4ECA-9FC4-5EF66AA5AF90}" DataType="UDINT" GUID_Obj="{347890C7-B02C-4403-9804-36B4C37B3EE1}" WriteProtected="true" Comment="name of mutex to save the internal connection settings (socket options)&#13;&#10;&#13;&#10;This name is also listed in PLCTraceView"/>
+		<RemoteServer Name="Reader1\_base\StrSemaName01.Data" GUID_Svr="{81990015-D505-4977-9326-733789F9FEAA}" Class="VirtualBaseInit" DataType="UDINT" GUID_Obj="{347890C7-B02C-4403-9804-36B4C37B3EE1}\{91D67C6F-0367-4693-9CB1-6C21984F97D8}\{299AFE23-53C0-4268-B520-661EA498CF23}" Type="Object Channel" MMType="String" Comment="use this channel to access the string functions"/>
+		<RemoteServer Name="Reader1\_base\StrSemaName02.Data" GUID_Svr="{81990015-D505-4977-9326-733789F9FEAA}" Class="VirtualBaseInit" DataType="UDINT" GUID_Obj="{347890C7-B02C-4403-9804-36B4C37B3EE1}\{91D67C6F-0367-4693-9CB1-6C21984F97D8}\{75EFD2B9-8A72-4ADD-B553-20298AB8A232}" Type="Object Channel" MMType="String" Comment="use this channel to access the string functions"/>
+		<RemoteServer Name="Reader1\_base\StrTaskName.Data" GUID_Svr="{81990015-D505-4977-9326-733789F9FEAA}" Class="VirtualBaseInit" DataType="UDINT" GUID_Obj="{347890C7-B02C-4403-9804-36B4C37B3EE1}\{91D67C6F-0367-4693-9CB1-6C21984F97D8}\{510AA27F-2062-4B46-A6C5-CE04D658B1CE}" Type="Object Channel" MMType="String" Comment="use this channel to access the string functions"/>
+		<RemoteServer Name="KeyPadANumStdTemplate.Screen" GUID_Svr="{E741BF69-4F63-11D5-8991-00902787C19C}" Class="_Screen" DataType="DINT" GUID_Obj="{C8074AFC-739E-4193-A138-7788DA672E6F}" Type="Object Channel"/>
+		<RemoteServer Name="KeyPadNumStdTemplate.Screen" GUID_Svr="{E741BF69-4F63-11D5-8991-00902787C19C}" Class="_Screen" DataType="DINT" GUID_Obj="{3B59F321-6931-43C7-8488-5DAB5333D8EF}" Type="Object Channel"/>
+		<RemoteServer Name="AlarmCommunication_HMI.ClassSvr" GUID_Svr="{BE689487-005D-4C4C-8B98-759BCFF5A930}" Class="_AlarmX0Para" DataType="DINT" GUID_Obj="{D4A37546-FE6A-40FE-ABA2-DA6D1EFB2A14}" Type="Object Channel"/>
+		<RemoteServer Name="SyncTimeHMI.sSyncDate" GUID_Svr="{3D757C3C-6FDA-4992-BF44-5E487B23E66E}" Class="_SyncTimeHMI" DataType="DATE_LSL" GUID_Obj="{C34E219B-F9BC-4722-B2DC-94BF36612973}" Type="Object Channel" Comment="server for sync date - also input is possible"/>
+		<RemoteServer Name="SyncTimeHMI.sSyncTime" GUID_Svr="{1369DF3B-1062-4103-A355-B85C08AAC6B1}" DataType="TIME_LSL" GUID_Obj="{C34E219B-F9BC-4722-B2DC-94BF36612973}" Comment="server for sync time - also input is possible"/>
+	</RemoteServers>
+</RemoteStation>

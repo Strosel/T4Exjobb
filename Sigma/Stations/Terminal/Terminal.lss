@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<SlnStation Name="Terminal" OnlineConnection="exjobb" Color="12813661">
+	<OnlineConnectionInfo>
+		<TCPIP ConfigName="exjobb" BUS="3" Password="" IP="192.168.111.52" PORT="1954" SomeFlags="0" PLCID="" Repeater="0" Favorite="1"/>
+	</OnlineConnectionInfo>
+	<SlnProjects>
+		<SlnClassProject Name="HMI" File=".\HMI\HMI.lcp">
+		</SlnClassProject>
+		<SlnScreenProject Name="LSE" File=".\LSE\LSE.lpr">
+		</SlnScreenProject>
+	</SlnProjects>
+</SlnStation>
