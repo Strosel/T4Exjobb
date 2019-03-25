@@ -4,14 +4,12 @@ import (
 	"database/sql"
 	"encoding/binary"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"log"
 	"net"
 	"net/http"
 	"os"
 	"runtime"
-	"strconv"
 	"time"
 
 	"github.com/strosel/goinput/httpin"
@@ -46,7 +44,7 @@ func main() {
 	mux.HandleFunc("/locations", getLocations)
 	mux.HandleFunc("/location", getLocation)
 	mux.HandleFunc("/order", sendOrder)
-	mux.HandleFunc("/MenuItems", getMenuItems)
+	mux.HandleFunc("/MenuItem", getMenuItem)
 
 	err = http.ListenAndServe(":8080", mux)
 	if err != nil {
@@ -148,19 +146,17 @@ func sendOrder(w http.ResponseWriter, r *http.Request) {
 	default:
 		w.Header().Set("Content-Type", "application/json")
 
-		r.ParseForm()
-		log.Println(r.Body)
-		loc, err := strconv.ParseUint(r.Form.Get("loc"), 10, 64)
-		if HTTPError(err, w, 400) {
+		decoder := json.NewDecoder(r.Body)
+		form := []uint64{}
+		err := decoder.Decode(&form)
+		if HTTPError(err, w, 500) {
 			return
 		}
 
-		var orders []uint64
+		loc := form[0]
+
 		// orders is a slice of uints in a repeating pattern of id, volume
-		err = json.Unmarshal([]byte(r.Form.Get("orders")), &orders)
-		if HTTPError(err, w, 400) {
-			return
-		}
+		orders := form[1:]
 
 		// query for target ip
 		sql := fmt.Sprintf(`SELECT target FROM locations WHERE id=%v LIMIT 1`, loc)
@@ -209,11 +205,13 @@ func sendOrder(w http.ResponseWriter, r *http.Request) {
 			send[i] = component[i]
 		}
 
+		//send order
 		_, err = c.Write(send)
 		if HTTPError(err, w, 500) {
 			return
 		}
 
+		//recieve response [order-id, deadline]
 		recive := make([]byte, 128)
 		_, err = c.Read(recive)
 		if HTTPError(err, w, 500) {
@@ -245,7 +243,7 @@ func sendOrder(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getMenuItems(w http.ResponseWriter, r *http.Request) {
+func getMenuItem(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	select {
@@ -254,41 +252,28 @@ func getMenuItems(w http.ResponseWriter, r *http.Request) {
 	default:
 		w.Header().Set("Content-Type", "application/json")
 
-		keys, ok := r.URL.Query()["key"]
-		if !ok {
-			HTTPError(errors.New("No keys"), w, 400)
+		id, err := httpin.GetParamInt(r, "id")
+		if HTTPError(err, w, 400) {
 			return
 		}
 
 		// query
-		sql := "SELECT * FROM menuitems WHERE "
-		for i, key := range keys {
-			if i < len(keys)-1 {
-				sql += fmt.Sprintf("id = %v OR", key)
-			} else {
-				sql += fmt.Sprintf("id = %v", key)
-			}
-
-		}
+		sql := fmt.Sprintf("SELECT * FROM menuitems WHERE id = %v", id)
 
 		rows, err := db.Query(sql)
 		if HTTPError(err, w, 500) {
 			return
 		}
 
-		var MenuItems []MenuItem
+		var MenuItem MenuItem
 		for rows.Next() {
-			var MI MenuItem
-			err = rows.Scan(&MI.ID, &MI.Name, &MI.Img)
+			err = rows.Scan(&MenuItem.ID, &MenuItem.Name, &MenuItem.Img)
 			if HTTPError(err, w, 500) {
 				return
 			}
-			MenuItems = append(MenuItems, MI)
 		}
 
-		b, err := json.Marshal(&struct {
-			Menu []MenuItem `json:"menu"`
-		}{MenuItems})
+		b, err := json.Marshal(MenuItem)
 		if HTTPError(err, w, 500) {
 			return
 		}
