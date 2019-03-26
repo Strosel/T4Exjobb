@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.tbte4.exjobb.adapters.FoodItemAdapter;
@@ -25,6 +27,7 @@ public class MenuActivity extends AppCompatActivity  {
     private static String tag = "ExJobb MenuActivity";
 
     int id;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,9 @@ public class MenuActivity extends AppCompatActivity  {
 
     @Override
     protected void onResume() {
+        spinner = findViewById(R.id.menu_spinner);
+        spinner.setVisibility(View.VISIBLE);
+
         String BaseURL = getString(R.string.server_endpoint);
         HttpLoader loader = new HttpLoader((JSONObject input) -> {
             try {
@@ -61,6 +67,8 @@ public class MenuActivity extends AppCompatActivity  {
                 Toast toast = Toast.makeText(this, R.string.err_conn, Toast.LENGTH_SHORT);
                 toast.show();
             }
+
+            spinner.setVisibility(View.GONE);
         });
 
         loader.execute(BaseURL+"/location?id="+ String.valueOf(id));
