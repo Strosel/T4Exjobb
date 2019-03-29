@@ -1,5 +1,6 @@
 package com.example.tbte4.exjobb;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,9 +65,18 @@ public class CartActivity extends AppCompatActivity {
 
             HttpLoader loader = new HttpLoader((JSONObject input)->{
 
-                /*
-                * clear cart
-                * open receipt screen */
+                //Clear cache in reciept
+
+                Intent intent = new Intent(this, receiptActivity.class);
+                try {
+                    intent.putExtra("id", input.getInt("id"));
+                    intent.putExtra("deadline", input.getInt("deadline"));
+                    this.startActivity(intent);
+                } catch (Exception e) {
+                    Log.v(tag, e.toString());
+                    Toast toast = Toast.makeText(this, R.string.err_order, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
 
             });
             loader.Post(body);

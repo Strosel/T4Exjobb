@@ -51,7 +51,6 @@ public class HttpLoader extends AsyncTask<String, Void, JSONObject> {
 
                 DataOutputStream wr = new DataOutputStream( conn.getOutputStream());
                 wr.writeBytes(postBody);
-                Log.v(tag+"_tmp", postBody);
             }
 
             if (conn.getResponseCode() == 200) {
