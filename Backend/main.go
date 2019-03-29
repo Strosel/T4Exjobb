@@ -224,7 +224,7 @@ func sendOrder(w http.ResponseWriter, r *http.Request) {
 			log.Println("Can't Read bytes [:64]")
 			return
 		}
-		dl, n := binary.Varint(recive[64:])
+		dl, n := binary.Uvarint(recive[64:])
 		if n <= 0 {
 			w.WriteHeader(500)
 			log.Println("Can't Read bytes [64:]")

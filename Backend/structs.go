@@ -25,6 +25,6 @@ type Locations struct {
 
 //Order An order
 type Order struct {
-	ID       uint  `json:"id"`
-	Deadline int64 `json:"deadline"`
+	ID       uint   `json:"id"`
+	Deadline uint64 `json:"deadline"`
 }
