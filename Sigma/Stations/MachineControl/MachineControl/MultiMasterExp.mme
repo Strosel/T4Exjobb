@@ -3,7 +3,7 @@
 	PrjRev   = "0.0"
 	Project  = "MachineControl"
 	IP       = "127.0.0.1"
-	Filename = "C:\Users\TBTE4\Documents\Exjobb\Sigma\Stations\MachineControl\MachineControl\MachineControl.lcp">
+	Filename = ".\MachineControl\MachineControl\MachineControl.lcp">
 	<RemoteServers>
 		<RemoteServer Name="Reader_main.TaskName" GUID_Svr="{505801B5-33F8-44EC-BA56-99EAC85FE0FB}" DataType="UDINT" GUID_Obj="{448BB4D6-338A-48C6-BC63-07B0A2B5FF68}" WriteProtected="true" Comment="shows task information&#13;&#10;-) use object in cyclic task&#13;&#10;-) use object in async task&#13;&#10;-) task deactivated&#13;&#10;-) async task error status (error creating async task)&#13;&#10;&#13;&#10;In case of using the object in async task, this name is also listed in PLCTraceView"/>
 		<RemoteServer Name="Reader_main.SemaName01" GUID_Svr="{B775AD7C-58EB-4B8E-8F93-6A68FE5D4FCA}" DataType="UDINT" GUID_Obj="{448BB4D6-338A-48C6-BC63-07B0A2B5FF68}" WriteProtected="true" Comment="name of mutex to save the internal connection buffer&#13;&#10;&#13;&#10;This name is also listed in PLCTraceView"/>

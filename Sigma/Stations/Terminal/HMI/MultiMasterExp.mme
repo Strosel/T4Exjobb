@@ -2,7 +2,7 @@
 <RemoteStation
 	PrjRev   = "0.0"
 	Project  = "HMI"
-	IP       = "192.168.111.52"
+	IP       = "192.168.111.50"
 	Filename = ".\Terminal\HMI\HMI.lcp">
 	<RemoteServers>
 		<RemoteServer Name="Reader1.TaskName" GUID_Svr="{505801B5-33F8-44EC-BA56-99EAC85FE0FB}" DataType="UDINT" GUID_Obj="{347890C7-B02C-4403-9804-36B4C37B3EE1}" WriteProtected="true" Comment="shows task information&#13;&#10;-) use object in cyclic task&#13;&#10;-) use object in async task&#13;&#10;-) task deactivated&#13;&#10;-) async task error status (error creating async task)&#13;&#10;&#13;&#10;In case of using the object in async task, this name is also listed in PLCTraceView"/>

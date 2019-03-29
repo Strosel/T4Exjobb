@@ -234,7 +234,7 @@ FUNCTION VIRTUAL GLOBAL Reader::Response
     for i := 1 to 64 do
       resp[i] := UDintToByteArr(udInput:=NextOrderId, index:=i-1);
     end_for;
-    deadline := 100*60*5;
+    deadline := 1000*60*5; //5 min in ms
     for i := 65 to 128 do
       resp[i] := UDintToByteArr(udInput:=deadline, index:=i-65);
     end_for;

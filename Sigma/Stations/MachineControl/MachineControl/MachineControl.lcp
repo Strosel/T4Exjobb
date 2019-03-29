@@ -2,12 +2,12 @@
 <Project
 	Version            = "12"
 	Name               = "MachineControl"
-	OnlineConnection   = "IP Lars Local"
+	OnlineConnection   = "exjobb"
 	SolutionType       = "Large"
 	WriteSrvListOnSave = "true"
 	CLASSType          = "true">
 	<OnlineConnectionInfo>
-		<TCPIP ConfigName="IP Lars Local" BUS="3" Password="" IP="127.0.0.1" PORT="1954" SomeFlags="0" PLCID="" Repeater="0" Favorite="1"/>
+		<TCPIP ConfigName="exjobb" BUS="3" Password="" IP="192.168.111.50" PORT="1954" SomeFlags="0" PLCID="" Repeater="0" Favorite="1"/>
 	</OnlineConnectionInfo>
 	<HeaderFiles>
 		<File Path=".\Include\unit.h"/>
@@ -148,7 +148,7 @@
 		<File Path=".\Class\UserAlarmGenerator\UserAlarmGenerator_en.pdf"/>
 	</DocuFiles>
 	<Options>
-		<Target UseFPU="true">
+		<Target UseFPU="true" Processor="ARM">
 		</Target>
 		<Compiler
 			CompilerVersion         = "46"
