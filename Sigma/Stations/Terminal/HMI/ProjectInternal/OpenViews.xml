@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <OpenViews>
+	<View Key="Main" Type="0"/>
+	<View Key="Reader" Type="2" LineNr="44"/>
+	<View Key="Reader" Type="2" LineNr="44"/>
 	<Setting Variable="OutputDebugger" Value=""/>
 </OpenViews>

@@ -2,7 +2,7 @@
 <Project
 	Version            = "12"
 	Name               = "HMI"
-	OnlineConnection   = "exjobb"
+	OnlineConnection   = "exjobb (Project)"
 	SolutionType       = "Large"
 	WriteSrvListOnSave = "true"
 	CLASSType          = "true">
@@ -252,9 +252,6 @@
 	<ObjectFiles>
 		<File Path=".\Loader\Source\Loader.lob" Downloadable="false"/>
 	</ObjectFiles>
-	<LibraryFiles>
-		<File Path="..\..\MachineControl\MachineControl\MachineControl.lcp"/>
-	</LibraryFiles>
 	<DocuFiles>
 		<File Path=".\Class\GetBroadCastData\GetBroadcastData.pdf"/>
 		<File Path=".\Class\GetBroadCastData\GetBroadcastData_eng.pdf"/>

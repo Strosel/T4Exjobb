@@ -2,12 +2,12 @@
 <Project
 	Version            = "12"
 	Name               = "MachineControl"
-	OnlineConnection   = "exjobb"
+	OnlineConnection   = "exjobb (Project)"
 	SolutionType       = "Large"
 	WriteSrvListOnSave = "true"
 	CLASSType          = "true">
 	<OnlineConnectionInfo>
-		<TCPIP ConfigName="exjobb" BUS="3" Password="" IP="192.168.111.50" PORT="1954" SomeFlags="0" PLCID="" Repeater="0" Favorite="1"/>
+		<TCPIP ConfigName="exjobb" BUS="3" Password="" IP="192.168.111.52" PORT="1954" SomeFlags="0" PLCID="" Repeater="0" Favorite="1"/>
 	</OnlineConnectionInfo>
 	<HeaderFiles>
 		<File Path=".\Include\unit.h"/>
